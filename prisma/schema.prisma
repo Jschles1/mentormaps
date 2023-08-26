@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Roadmap {
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  title      String
+  milestones Milestone[]
+  currentMilestoneId Int?
+  mentorId   Int?
+  menteeId   Int?
+}
+
+model Milestone {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  slug      String   @unique
+  Roadmap   Roadmap? @relation(fields: [roadmapId], references: [id])
+  roadmapId Int?
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  appointmentTime DateTime
+  meetingLink String
+  mentorId   Int?
+  menteeId   Int?
+}
