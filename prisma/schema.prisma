@@ -11,14 +11,15 @@ datasource db {
 }
 
 model Roadmap {
-  id         Int         @id @default(autoincrement())
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  title      String
-  milestones Milestone[]
+  id                 Int             @id @default(autoincrement())
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  title              String
+  milestones         Milestone[]
   currentMilestoneId Int?
-  mentorId   Int?
-  menteeId   Int?
+  mentorId           Int?
+  menteeId           Int?
+  RoadmapInvite      RoadmapInvite[]
 }
 
 model Milestone {
@@ -31,12 +32,22 @@ model Milestone {
   roadmapId Int?
 }
 
-model Appointment {
+model RoadmapInvite {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Roadmap   Roadmap? @relation(fields: [roadmapId], references: [id])
+  roadmapId Int?
+  mentorId  Int?
+  menteeId  Int?
+}
+
+model Appointment {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
   appointmentTime DateTime
-  meetingLink String
-  mentorId   Int?
-  menteeId   Int?
+  meetingLink     String
+  mentorId        Int?
+  menteeId        Int?
 }
