@@ -8,7 +8,7 @@ export default function DashboardLayout({
   return (
     <div className="h-full w-full min-h-screen flex flex-col bg-lighter-blue-gray relative">
       <Navigation />
-      {children}
+      <main className="h-full w-full px-4 py-6">{children}</main>
     </div>
   );
 }
