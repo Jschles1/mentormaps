@@ -15,6 +15,7 @@ model Roadmap {
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
   title              String
+  goal               String
   milestones         Milestone[]
   currentMilestoneId Int?
   mentorId           String?
