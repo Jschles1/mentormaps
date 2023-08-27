@@ -17,8 +17,8 @@ model Roadmap {
   title              String
   milestones         Milestone[]
   currentMilestoneId Int?
-  mentorId           Int?
-  menteeId           Int?
+  mentorId           String?
+  menteeId           String?
   RoadmapInvite      RoadmapInvite[]
 }
 
@@ -27,7 +27,6 @@ model Milestone {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title     String
-  slug      String   @unique
   Roadmap   Roadmap? @relation(fields: [roadmapId], references: [id])
   roadmapId Int?
 }
@@ -38,8 +37,8 @@ model RoadmapInvite {
   updatedAt DateTime @updatedAt
   Roadmap   Roadmap? @relation(fields: [roadmapId], references: [id])
   roadmapId Int?
-  mentorId  Int?
-  menteeId  Int?
+  mentorId  String?
+  menteeId  String?
 }
 
 model Appointment {
@@ -48,6 +47,6 @@ model Appointment {
   updatedAt       DateTime @updatedAt
   appointmentTime DateTime
   meetingLink     String
-  mentorId        Int?
-  menteeId        Int?
+  mentorId        String?
+  menteeId        String?
 }

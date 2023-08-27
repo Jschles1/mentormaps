@@ -1,7 +1,3 @@
 export default function DashboardPage() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hello Roadmap (Dashboard Page)
-    </main>
-  );
+  return <main className="h-full w-full">Hello Roadmap (Dashboard Page)</main>;
 }
