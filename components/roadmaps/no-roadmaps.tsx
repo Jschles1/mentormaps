@@ -13,7 +13,7 @@ export default function NoRoadmaps() {
           your mentor. Check &quot;Roadmap Invites&quot; in the menu to see
           pending invites.
         </p>
-        <p>
+        <p className="mb-6">
           To create a roadmap as a mentor, click the &quot;+&quot; button above
           or the &quot;Add New Roadmap&quot; button below to get started.
         </p>
