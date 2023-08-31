@@ -88,11 +88,9 @@ export default function CreateRoadMapDialog({
       <DialogTrigger className={triggerClassName} onClick={handleClick}>
         {triggerText}
       </DialogTrigger>
-      <DialogContent className="w-[calc(100%-2rem)] rounded-[6px]">
+      <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-black-darkest">
-            Add New Roadmap
-          </DialogTitle>
+          <DialogTitle>Add New Roadmap</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
