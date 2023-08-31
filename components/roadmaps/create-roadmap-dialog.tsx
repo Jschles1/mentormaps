@@ -62,6 +62,9 @@ export default function CreateRoadMapDialog({
 
   function handleOpenChange(open: boolean) {
     setIsOpen(open);
+    if (!open) {
+      form.reset();
+    }
   }
 
   function handleClick() {
@@ -142,8 +145,10 @@ export default function CreateRoadMapDialog({
               )}
             />
             <Button
-              className="h-10 w-full px-[1.125rem] py-4 text-[0.938rem] bg-dark-lavender focus-within:bg-light-lavender focus:bg-light-lavender active:bg-light-lavender hover:bg-light-lavender text-white rounded-3xl"
               type="submit"
+              variant="default"
+              size="sm"
+              className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
             >
               Create Roadmap
             </Button>
