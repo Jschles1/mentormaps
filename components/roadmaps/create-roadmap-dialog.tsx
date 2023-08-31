@@ -26,12 +26,22 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 
 const formSchema = z.object({
-  title: z.string().min(2, {
-    message: "Title must be at least 2 characters.",
-  }),
-  goal: z.string().min(2, {
-    message: "Goal must be at least 2 characters.",
-  }),
+  title: z
+    .string()
+    .min(1, {
+      message: "Title is required.",
+    })
+    .min(2, {
+      message: "Title must be at least 2 characters.",
+    }),
+  goal: z
+    .string()
+    .min(1, {
+      message: "Goal is required.",
+    })
+    .min(2, {
+      message: "Goal must be at least 2 characters.",
+    }),
   mentee: z.union([z.number(), z.string()]).optional(),
 });
 
@@ -71,6 +81,8 @@ export default function CreateRoadMapDialog({
     console.log("clicked");
   }
 
+  const errors = form.formState.errors;
+
   return (
     <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger className={triggerClassName} onClick={handleClick}>
@@ -93,6 +105,7 @@ export default function CreateRoadMapDialog({
                   <FormControl>
                     <Input
                       placeholder="e.g. Software Developer Roadmap"
+                      error={!!errors.title}
                       {...field}
                     />
                   </FormControl>
@@ -110,6 +123,7 @@ export default function CreateRoadMapDialog({
                   <FormControl>
                     <Input
                       placeholder="e.g. Become a Software Developer"
+                      error={!!errors.goal}
                       {...field}
                     />
                   </FormControl>
@@ -130,15 +144,15 @@ export default function CreateRoadMapDialog({
                     <Input placeholder="john-doe@gmail.com" {...field} />
                   </FormControl>
                   <FormDescription>
-                    <p className="mb-2">
+                    <div className="mb-2">
                       The email of the mentee that you want this roadmap to be
                       for. You can choose from a list of existing user accounts.
-                    </p>
+                    </div>
 
-                    <p>
+                    <div>
                       Upon creation of this roadmap, they will receive an invite
                       to join. You can choose to leave this blank for now.
-                    </p>
+                    </div>
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
