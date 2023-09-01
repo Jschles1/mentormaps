@@ -74,7 +74,7 @@ export default function CreateRoadMapDialog({
       const response = await axios.post("/api/create-roadmap", {
         title: values.title,
         goal: values.goal,
-        menteeEmail: values.menteeEmail,
+        menteeEmail: values?.menteeEmail?.trim(),
       });
 
       if (response.status !== 200) {
