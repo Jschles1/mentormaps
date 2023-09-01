@@ -16,12 +16,14 @@ export async function POST(req: NextRequest) {
   try {
     const { userId } = auth();
 
+    // Check if user is logged in
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
     const { title, goal, menteeEmail } = await req.json();
 
+    // Basic form validation
     if (!title || !goal) {
       return new NextResponse("Missing title or goal", { status: 400 });
     }
@@ -32,13 +34,13 @@ export async function POST(req: NextRequest) {
       mentorId: userId,
     };
 
+    // Check if mentee email exists if entered, if so, get menteeId. If not, return error
     if (menteeEmail) {
       const menteeSearchResult = await clerkClient.users.getUserList({
         emailAddress: menteeEmail,
       });
 
       if (menteeSearchResult.length) {
-        console.log(menteeSearchResult[0].id);
         roadmapObject.menteeId = menteeSearchResult[0].id;
       } else {
         return new NextResponse("Mentee email doesn't exist", { status: 400 });
