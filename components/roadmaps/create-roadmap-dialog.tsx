@@ -1,14 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z
@@ -42,7 +43,7 @@ const formSchema = z.object({
     .min(2, {
       message: "Goal must be at least 2 characters.",
     }),
-  mentee: z.union([z.number(), z.string()]).optional(),
+  menteeEmail: z.string().email().optional().or(z.literal("")),
 });
 
 interface CreateRoadMapDialogProps {
@@ -54,7 +55,8 @@ export default function CreateRoadMapDialog({
   triggerClassName,
   triggerText,
 }: CreateRoadMapDialogProps) {
-  const { userId } = useAuth();
+  const router = useRouter();
+  const [_, startTransition] = React.useTransition();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,12 +64,40 @@ export default function CreateRoadMapDialog({
     defaultValues: {
       title: "",
       goal: "",
-      mentee: "",
+      menteeEmail: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    try {
+      const response = await axios.post("/api/create-roadmap", {
+        title: values.title,
+        goal: values.goal,
+        menteeEmail: values.menteeEmail,
+      });
+
+      if (response.status !== 200) {
+        throw new Error("Something went wrong.");
+      }
+
+      // If success, close dialog
+      setIsOpen(false);
+
+      // Refreshes the page to trigger data fetching on server render
+      // TODO: Study this more
+      startTransition(() => {
+        router.refresh();
+      });
+    } catch (error: any) {
+      const errorMessage = error?.response?.data;
+      if (errorMessage === "Mentee email doesn't exist") {
+        form.setError("menteeEmail", {
+          type: "manual",
+          message: "Mentee email doesn't exist.",
+        });
+      }
+    }
   }
 
   function handleOpenChange(open: boolean) {
@@ -77,17 +107,12 @@ export default function CreateRoadMapDialog({
     }
   }
 
-  function handleClick() {
-    console.log("clicked");
-  }
-
   const errors = form.formState.errors;
+  const isSubmitted = form.formState.isSubmitted;
 
   return (
-    <Dialog onOpenChange={handleOpenChange}>
-      <DialogTrigger className={triggerClassName} onClick={handleClick}>
-        {triggerText}
-      </DialogTrigger>
+    <Dialog onOpenChange={handleOpenChange} open={isOpen}>
+      <DialogTrigger className={triggerClassName}>{triggerText}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Roadmap</DialogTitle>
@@ -134,7 +159,7 @@ export default function CreateRoadMapDialog({
             />
             <FormField
               control={form.control}
-              name="mentee"
+              name="menteeEmail"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Mentee Email</FormLabel>
@@ -142,17 +167,12 @@ export default function CreateRoadMapDialog({
                     <Input placeholder="john-doe@gmail.com" {...field} />
                   </FormControl>
                   <FormDescription>
-                    <div className="mb-2">
-                      The email of the mentee that you want this roadmap to be
-                      for. You can choose from a list of existing user accounts.
-                    </div>
-
-                    <div>
-                      Upon creation of this roadmap, they will receive an invite
-                      to join. You can choose to leave this blank for now.
-                    </div>
+                    The email of the mentee that you want this roadmap to be
+                    for. If the entered email exists, the mentee will receive an
+                    invite to join the roadmap upon creation. You can choose to
+                    leave this blank for now.
                   </FormDescription>
-                  <FormMessage />
+                  <FormMessage className={cn(!isSubmitted && "hidden")} />
                 </FormItem>
               )}
             />
