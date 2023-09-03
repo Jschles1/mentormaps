@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prisma-db";
 import { Button } from "@/components/ui/button";
 import NoRoadmaps from "@/components/roadmaps/no-roadmaps";
+import RoadmapsList from "@/components/roadmaps/roadmap-list";
 
 export default async function RoadmapsPage() {
   const { userId } = auth();
@@ -21,5 +22,5 @@ export default async function RoadmapsPage() {
     return <NoRoadmaps />;
   }
 
-  return <div>Hello Roadmap (Roadmaps Page)</div>;
+  return <RoadmapsList type="mentor" roadmaps={mentorRoadmaps} />;
 }
