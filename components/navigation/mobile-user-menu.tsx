@@ -48,13 +48,20 @@ export default async function MobileUserMenu({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hover:bg-lighter-blue-gray focus:bg-lighter-blue-gray focus-within:bg-lighter-blue-gray focus-visible:bg-lighter-blue-gray active:bg-lighter-blue-gray"
-        >
-          <Image src={IconVerticalEllipsis} alt="Menu" />
-        </Button>
+        <div className="relative">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-lighter-blue-gray focus:bg-lighter-blue-gray focus-within:bg-lighter-blue-gray focus-visible:bg-lighter-blue-gray active:bg-lighter-blue-gray"
+          >
+            <Image src={IconVerticalEllipsis} alt="Menu" />
+          </Button>
+          {!!inviteLength && (
+            <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full">
+              {inviteLength}
+            </div>
+          )}
+        </div>
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">
         {/* TODO: Place in client component and change sheet content based on page */}
