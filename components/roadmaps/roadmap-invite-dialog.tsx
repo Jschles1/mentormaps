@@ -9,10 +9,8 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import MenuButton from "../navigation/menu-button";
-import { Roadmap, RoadmapInvite } from "@prisma/client";
+import { RoadmapInvite } from "@prisma/client";
 import { Mail } from "lucide-react";
-import prismadb from "@/lib/prisma-db";
-import { User, clerkClient } from "@clerk/nextjs/server";
 import { Button } from "../ui/button";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchRoadmapInvites } from "@/lib/fetchers";
