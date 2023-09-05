@@ -7,10 +7,7 @@ interface RoadmapFormData {
   title: string;
   goal: string;
   mentorId: string;
-  menteeId?: string;
 }
-
-// TODO: Create roadmap without menteeId even if provided. Then update roadmap menteeId after mentee accepts invite
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,6 +31,8 @@ export async function POST(req: NextRequest) {
       mentorId: userId,
     };
 
+    let menteeId: string = "";
+
     // Check if mentee email exists if entered, if so, get menteeId. If not, return error
     if (menteeEmail) {
       const menteeSearchResult = await clerkClient.users.getUserList({
@@ -41,7 +40,7 @@ export async function POST(req: NextRequest) {
       });
 
       if (menteeSearchResult.length) {
-        roadmapObject.menteeId = menteeSearchResult[0].id;
+        menteeId = menteeSearchResult[0].id;
       } else {
         return new NextResponse("Mentee email doesn't exist", { status: 400 });
       }
@@ -53,12 +52,12 @@ export async function POST(req: NextRequest) {
     });
 
     // Create RoadmapInvite for mentee if menteeId exists
-    if (roadmapObject.menteeId) {
+    if (menteeId) {
       const roadmapInvite = await prismadb.roadmapInvite.create({
         data: {
           roadmapId: newRoadmap.id,
           mentorId: userId,
-          menteeId: roadmapObject.menteeId,
+          menteeId: menteeId,
         },
       });
     }

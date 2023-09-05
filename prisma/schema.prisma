@@ -11,16 +11,18 @@ datasource db {
 }
 
 model Roadmap {
-  id                 Int             @id @default(autoincrement())
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  title              String
-  goal               String
-  milestones         Milestone[]
-  currentMilestoneId Int?
-  mentorId           String?
-  menteeId           String?
-  RoadmapInvite      RoadmapInvite[]
+  id                  Int             @id @default(autoincrement())
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  title               String
+  goal                String
+  milestones          Milestone[]
+  currentMilestoneId  Int?
+  milestonesCompleted Int?            @default(0)
+  milestonesTotal     Int?            @default(0)
+  mentorId            String?
+  menteeId            String?
+  RoadmapInvite       RoadmapInvite[]
 }
 
 model Milestone {
