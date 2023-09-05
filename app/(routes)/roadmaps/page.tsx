@@ -22,5 +22,10 @@ export default async function RoadmapsPage() {
     return <NoRoadmaps />;
   }
 
-  return <RoadmapsList type="mentor" roadmaps={mentorRoadmaps} />;
+  return (
+    <div>
+      <RoadmapsList type="mentor" roadmaps={mentorRoadmaps} />
+      <RoadmapsList type="mentee" roadmaps={menteeRoadmaps} />
+    </div>
+  );
 }
