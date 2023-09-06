@@ -52,7 +52,7 @@ export default function RoadmapInviteDialog({
     onSuccess: (data) => {
       console.log("Mutation success!", data);
       queryClient.invalidateQueries({ queryKey: roadmapInvitesQueryKey });
-      // TODO: invalidate roadmaps query
+      queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
     },
   });
   const inviteLength = data?.roadmapInvites.length;
@@ -82,30 +82,37 @@ export default function RoadmapInviteDialog({
         <DialogHeader>
           <DialogTitle className="mb-6">Pending Invites</DialogTitle>
           <div className="flex flex-col items-start gap-y-4">
-            {data?.roadmapData.map((data: RoadmapData) => (
-              <div
-                key={data.roadmapId}
-                className="bg-lighter-blue-gray p-3 rounded w-full flex flex-col gap-y-2"
-              >
-                <p className="text-black-darkest font-bold">{data.title}</p>
-                <p className="text-sm text-gray">Mentor: {data.mentorName}</p>
-                <div className="flex items-center mt-2 gap-x-2">
-                  <Button
-                    className="w-full"
-                    onClick={() => handleAccept(data.roadmapId)}
-                  >
-                    Accept
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    className="w-full"
-                    onClick={() => handleDecline(data.roadmapId)}
-                  >
-                    Decline
-                  </Button>
+            {data?.roadmapData.length ? (
+              data?.roadmapData.map((data: RoadmapData) => (
+                <div
+                  key={data.roadmapId}
+                  className="bg-lighter-blue-gray p-3 rounded w-full flex flex-col gap-y-2"
+                >
+                  <p className="text-black-darkest font-bold">{data.title}</p>
+                  <p className="text-sm text-gray">Mentor: {data.mentorName}</p>
+                  <div className="flex items-center mt-2 gap-x-2">
+                    <Button
+                      className="w-full"
+                      onClick={() => handleAccept(data.roadmapId)}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      className="w-full"
+                      onClick={() => handleDecline(data.roadmapId)}
+                    >
+                      Decline
+                    </Button>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-gray">
+                You currently have no pending roadmap invites. Please check
+                again later.
               </div>
-            ))}
+            )}
           </div>
         </DialogHeader>
       </DialogContent>
