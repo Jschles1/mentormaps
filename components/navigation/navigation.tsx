@@ -3,18 +3,11 @@
 import { UserButton, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Logo from "public/images/logo-light.svg";
-
-import prismadb from "@/lib/prisma-db";
 import AddButton from "./add-button";
 import MobileUserMenu from "./mobile-user-menu";
 
 export default async function Navigation() {
   const { userId } = auth();
-  const roadmaps = await prismadb.roadmap.findMany({
-    where: {
-      menteeId: userId,
-    },
-  });
 
   return (
     <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
@@ -34,7 +27,7 @@ export default async function Navigation() {
           }}
           userProfileMode="modal"
         />
-        <MobileUserMenu roadmaps={roadmaps} />
+        <MobileUserMenu />
       </div>
     </div>
   );

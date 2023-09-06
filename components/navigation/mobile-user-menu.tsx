@@ -12,13 +12,9 @@ import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 
-interface MobileUserMenuProps {
-  roadmaps: Roadmap[];
-}
+interface MobileUserMenuProps {}
 
-export default async function MobileUserMenu({
-  roadmaps,
-}: MobileUserMenuProps) {
+export default async function MobileUserMenu({}: MobileUserMenuProps) {
   const { userId } = auth();
 
   const { roadmapInvites, roadmapData } = await getRoadmapInvites(
