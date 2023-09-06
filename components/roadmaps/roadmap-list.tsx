@@ -2,12 +2,12 @@ import { Roadmap } from "@prisma/client";
 import RoadmapCard from "./roadmap-card";
 import NoMenteeRoadmaps from "./no-mentee-roadmaps";
 
-interface RoadmapsListProps {
+interface RoadmapListProps {
   type: "mentee" | "mentor";
   roadmaps: Roadmap[];
 }
 
-export default function RoadmapsList({ type, roadmaps }: RoadmapsListProps) {
+export default function RoadmapList({ type, roadmaps }: RoadmapListProps) {
   const roadmapsLength = roadmaps.length;
 
   if (type === "mentee" && !roadmapsLength) {

@@ -3,7 +3,7 @@
 import { fetchRoadmaps } from "@/lib/fetchers";
 import { Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import RoadmapsList from "./roadmap-list";
+import RoadmapList from "./roadmap-list";
 
 interface RoadmapListWrapperProps {
   mentorRoadmaps: Roadmap[];
@@ -29,8 +29,8 @@ export default function RoadmapListWrapper({
 
   return (
     <div>
-      <RoadmapsList type="mentor" roadmaps={data?.mentorRoadmaps} />
-      <RoadmapsList type="mentee" roadmaps={data?.menteeRoadmaps} />
+      <RoadmapList type="mentor" roadmaps={data?.mentorRoadmaps} />
+      <RoadmapList type="mentee" roadmaps={data?.menteeRoadmaps} />
     </div>
   );
 }
