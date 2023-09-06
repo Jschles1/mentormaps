@@ -4,6 +4,7 @@ import { fetchRoadmaps } from "@/lib/fetchers";
 import { Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import RoadmapList from "./roadmap-list";
+import NoRoadmaps from "./no-roadmaps";
 
 interface RoadmapListWrapperProps {
   mentorRoadmaps: Roadmap[];
@@ -25,7 +26,12 @@ export default function RoadmapListWrapper({
     refetchOnMount: false,
   });
 
-  console.log({ data });
+  const noRoadmaps =
+    !data?.menteeRoadmaps?.length && !data?.mentorRoadmaps?.length;
+
+  if (noRoadmaps) {
+    return <NoRoadmaps />;
+  }
 
   return (
     <div>

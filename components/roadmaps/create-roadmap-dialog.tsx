@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -53,8 +53,7 @@ interface CreateRoadMapDialogProps {
 export default function CreateRoadMapDialog({
   trigger,
 }: CreateRoadMapDialogProps) {
-  const router = useRouter();
-  const [_, startTransition] = React.useTransition();
+  const queryClient = useQueryClient();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -66,28 +65,18 @@ export default function CreateRoadMapDialog({
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    try {
-      const response = await axios.post("/api/create-roadmap", {
-        title: values.title,
-        goal: values.goal,
-        menteeEmail: values?.menteeEmail?.trim(),
-      });
-
-      if (response.status !== 200) {
-        throw new Error("Something went wrong.");
-      }
-
-      // If success, close dialog
+  const createRoadmapMutation = useMutation({
+    mutationFn: (variables: z.infer<typeof formSchema>) =>
+      axios.post("/api/create-roadmap", {
+        title: variables.title,
+        goal: variables.goal,
+        menteeEmail: variables?.menteeEmail?.trim(),
+      }),
+    onSuccess: (_) => {
       setIsOpen(false);
-
-      // Refreshes the page to trigger data fetching on server render
-      // TODO: Study this more
-      startTransition(() => {
-        router.refresh();
-      });
-    } catch (error: any) {
+      queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
+    },
+    onError: (error: any) => {
       const errorMessage = error?.response?.data;
       if (errorMessage === "Mentee email doesn't exist") {
         form.setError("menteeEmail", {
@@ -95,6 +84,14 @@ export default function CreateRoadMapDialog({
           message: "Mentee email doesn't exist.",
         });
       }
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      createRoadmapMutation.mutate(values);
+    } catch (error) {
+      // For preventing unhandled promise rejection
     }
   }
 
