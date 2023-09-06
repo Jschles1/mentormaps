@@ -3,20 +3,16 @@ import prismadb from "@/lib/prisma-db";
 import { Button } from "@/components/ui/button";
 import NoRoadmaps from "@/components/roadmaps/no-roadmaps";
 import RoadmapsList from "@/components/roadmaps/roadmap-list";
+import getRoadmaps from "@/lib/server/api/getRoadmaps";
 
 export default async function RoadmapsPage() {
   const { userId } = auth();
-  const menteeRoadmaps = await prismadb.roadmap.findMany({
-    where: {
-      menteeId: userId,
-    },
-  });
-  const mentorRoadmaps = await prismadb.roadmap.findMany({
-    where: {
-      mentorId: userId,
-    },
-  });
+  const { menteeRoadmaps, mentorRoadmaps } = await getRoadmaps(
+    userId as string
+  );
   const noRoadmaps = !menteeRoadmaps?.length && !mentorRoadmaps?.length;
+
+  console.log({ menteeRoadmaps, mentorRoadmaps });
 
   if (noRoadmaps) {
     return <NoRoadmaps />;
