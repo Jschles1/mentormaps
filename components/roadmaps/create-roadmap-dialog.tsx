@@ -47,13 +47,11 @@ const formSchema = z.object({
 });
 
 interface CreateRoadMapDialogProps {
-  triggerClassName?: string;
-  triggerText?: string;
+  trigger?: React.ReactNode;
 }
 
 export default function CreateRoadMapDialog({
-  triggerClassName,
-  triggerText,
+  trigger,
 }: CreateRoadMapDialogProps) {
   const router = useRouter();
   const [_, startTransition] = React.useTransition();
@@ -112,7 +110,7 @@ export default function CreateRoadMapDialog({
 
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
-      <DialogTrigger className={triggerClassName}>{triggerText}</DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Roadmap</DialogTitle>
