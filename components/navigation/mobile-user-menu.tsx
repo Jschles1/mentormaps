@@ -11,6 +11,7 @@ import prismadb from "@/lib/prisma-db";
 import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
+import MenuNotification from "./menu-notification";
 
 interface MobileUserMenuProps {}
 
@@ -35,11 +36,11 @@ export default async function MobileUserMenu({}: MobileUserMenuProps) {
           >
             <Image src={IconVerticalEllipsis} alt="Menu" />
           </Button>
-          {!!inviteLength && (
-            <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full">
-              {inviteLength}
-            </div>
-          )}
+          <MenuNotification
+            userId={userId as string}
+            roadmapInvites={roadmapInvites}
+            roadmapData={roadmapData}
+          />
         </div>
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">

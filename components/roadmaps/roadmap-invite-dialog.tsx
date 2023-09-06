@@ -82,7 +82,7 @@ export default function RoadmapInviteDialog({
         <DialogHeader>
           <DialogTitle className="mb-6">Pending Invites</DialogTitle>
           <div className="flex flex-col items-start gap-y-4">
-            {data?.roadmapData.length ? (
+            {data?.roadmapData?.length ? (
               data?.roadmapData.map((data: RoadmapData) => (
                 <div
                   key={data.roadmapId}
