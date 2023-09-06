@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import NoRoadmaps from "@/components/roadmaps/no-roadmaps";
 import RoadmapsList from "@/components/roadmaps/roadmap-list";
 import getRoadmaps from "@/lib/server/api/getRoadmaps";
+import RoadmapListWrapper from "@/components/roadmaps/roadmap-list-wrapper";
 
 export default async function RoadmapsPage() {
   const { userId } = auth();
@@ -19,9 +20,10 @@ export default async function RoadmapsPage() {
   }
 
   return (
-    <div>
-      <RoadmapsList type="mentor" roadmaps={mentorRoadmaps} />
-      <RoadmapsList type="mentee" roadmaps={menteeRoadmaps} />
-    </div>
+    <RoadmapListWrapper
+      userId={userId as string}
+      mentorRoadmaps={mentorRoadmaps}
+      menteeRoadmaps={menteeRoadmaps}
+    />
   );
 }
