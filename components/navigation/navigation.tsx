@@ -1,14 +1,10 @@
-// "use client";
-
-import { UserButton, auth } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Logo from "public/images/logo-light.svg";
 import AddButton from "./add-button";
 import MobileUserMenu from "./mobile-user-menu";
 
 export default async function Navigation() {
-  const { userId } = auth();
-
   return (
     <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
       <div className="flex items-center gap-x-4">
