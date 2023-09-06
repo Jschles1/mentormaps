@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import axios from "axios";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +13,7 @@ import MenuButton from "../navigation/menu-button";
 import { RoadmapInvite } from "@prisma/client";
 import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchRoadmapInvites } from "@/lib/fetchers";
 
 type RoadmapData = {
@@ -41,8 +42,29 @@ export default function RoadmapInviteDialog({
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
+
+  const inviteResponseMutation = useMutation({
+    mutationFn: (variables: { roadmapId: number; accepted: boolean }) =>
+      axios.post("/api/roadmap-invites", {
+        accepted: variables.accepted,
+        roadmapId: variables.roadmapId,
+      }),
+    onSuccess: (data) => {
+      console.log("Mutation success!", data);
+      queryClient.invalidateQueries({ queryKey: roadmapInvitesQueryKey });
+      // TODO: invalidate roadmaps query
+    },
+  });
   const inviteLength = data?.roadmapInvites.length;
   const disableInviteButton = !inviteLength;
+
+  async function handleAccept(id: number) {
+    inviteResponseMutation.mutate({ roadmapId: id, accepted: true });
+  }
+
+  async function handleDecline(id: number) {
+    inviteResponseMutation.mutate({ roadmapId: id, accepted: true });
+  }
 
   return (
     <Dialog>
@@ -68,8 +90,17 @@ export default function RoadmapInviteDialog({
                 <p className="text-black-darkest font-bold">{data.title}</p>
                 <p className="text-sm text-gray">Mentor: {data.mentorName}</p>
                 <div className="flex items-center mt-2 gap-x-2">
-                  <Button className="w-full">Accept</Button>
-                  <Button variant="destructive" className="w-full">
+                  <Button
+                    className="w-full"
+                    onClick={() => handleAccept(data.roadmapId)}
+                  >
+                    Accept
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => handleDecline(data.roadmapId)}
+                  >
                     Decline
                   </Button>
                 </div>
