@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import getRoadmaps from "@/lib/server/api/getRoadmaps";
-import RoadmapListWrapper from "@/components/roadmaps/roadmap-list-wrapper";
+import RoadmapsPageTemplate from "@/components/templates/roadmaps-page-template";
 
 export default async function RoadmapsPage() {
   const { userId } = auth();
@@ -9,7 +9,7 @@ export default async function RoadmapsPage() {
   );
 
   return (
-    <RoadmapListWrapper
+    <RoadmapsPageTemplate
       userId={userId as string}
       mentorRoadmaps={mentorRoadmaps}
       menteeRoadmaps={menteeRoadmaps}

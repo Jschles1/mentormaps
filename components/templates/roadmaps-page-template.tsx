@@ -3,20 +3,20 @@
 import { fetchRoadmaps } from "@/lib/fetchers";
 import { Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import RoadmapList from "./roadmap-list";
-import NoRoadmaps from "./no-roadmaps";
+import RoadmapList from "../roadmaps/roadmap-list";
+import NoRoadmaps from "../roadmaps/no-roadmaps";
 
-interface RoadmapListWrapperProps {
+interface RoadmapsPageTemplateProps {
   mentorRoadmaps: Roadmap[];
   menteeRoadmaps: Roadmap[];
   userId: string;
 }
 
-export default function RoadmapListWrapper({
+export default function RoadmapsPageTemplate({
   mentorRoadmaps,
   menteeRoadmaps,
   userId,
-}: RoadmapListWrapperProps) {
+}: RoadmapsPageTemplateProps) {
   const roadmapsQueryKey = ["roadmaps", userId];
   const { data } = useQuery({
     queryKey: roadmapsQueryKey,
