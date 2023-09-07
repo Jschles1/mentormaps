@@ -10,13 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum RoadmapStatus {
+  Pending
+  Active
+  Completed
+}
+
+enum MilestoneStatus {
+  Pending
+  Active
+  Rejected
+  Completed
+}
+
 model Roadmap {
   id                  Int             @id @default(autoincrement())
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
   title               String
   goal                String
-  status              String          @default("Pending")
+  status              RoadmapStatus   @default(Pending)
   milestones          Milestone[]
   currentMilestoneId  Int?
   milestonesCompleted Int?            @default(0)
@@ -27,14 +40,14 @@ model Roadmap {
 }
 
 model Milestone {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
   title       String
   description String
-  status      String   @default("Pending")
+  status      MilestoneStatus @default(Pending)
   order       Int
-  Roadmap     Roadmap? @relation(fields: [roadmapId], references: [id])
+  Roadmap     Roadmap?        @relation(fields: [roadmapId], references: [id])
   roadmapId   Int?
 }
 
