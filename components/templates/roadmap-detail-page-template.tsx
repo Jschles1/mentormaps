@@ -3,7 +3,13 @@
 import { fetchRoadmapDetails } from "@/lib/fetchers";
 import { Milestone, Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { Map, Crown, GraduationCap, BarChart2 } from "lucide-react";
+import {
+  Map,
+  Crown,
+  GraduationCap,
+  BarChart2,
+  MilestoneIcon,
+} from "lucide-react";
 import {
   Card,
   CardDescription,
@@ -11,6 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserInfo, RoadmapWithMilestones } from "@/lib/interfaces";
+import { Button } from "../ui/button";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestones;
@@ -37,6 +44,9 @@ export default function RoadmapDetailPageTemplate({
   });
 
   const hasNoMentee = data?.isMentor && !data?.otherUser;
+  const milestoneLength = data?.roadmap.milestones.length || 0;
+  const hasNoMilestones = milestoneLength === 0;
+  const invalidRoadmap = hasNoMentee || hasNoMilestones;
 
   console.log(JSON.stringify(data, null, 2));
   let mentorName: string;
@@ -54,7 +64,7 @@ export default function RoadmapDetailPageTemplate({
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-4">
       <Card className="px-4 py-6 border-0">
         <div className="flex items-center gap-x-4 mb-6">
           <Map size={16} />
@@ -76,6 +86,48 @@ export default function RoadmapDetailPageTemplate({
         <div className="flex items-center gap-x-4 mb-3">
           <GraduationCap size={16} />
           <p className="text-black-darkest text-sm">Mentee: {menteeName}</p>
+        </div>
+
+        {invalidRoadmap && (
+          <div className="flex flex-col gap-y-2 mt-6">
+            <p className="text-sm text-orange">
+              This roadmap cannot be started until the following has been
+              completed:
+            </p>
+            <ul>
+              {hasNoMentee && (
+                <li className="text-sm text-orange">
+                  - A mentee has accepted an invite to this roadmap.
+                </li>
+              )}
+              {hasNoMilestones && (
+                <li className="text-sm text-orange">
+                  - A Milestone has been added.
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
+
+        <div className="mt-6 flex flex-col gap-y-4">
+          {/* TODO: Turn into dialog */}
+          {hasNoMentee && <Button variant="secondary">Invite Mentee</Button>}
+          <Button disabled={hasNoMentee}>Begin Roadmap</Button>
+          {/* <Button variant="secondary">Edit Roadmap Details</Button>
+          <Button variant="destructive">Delete Roadmap</Button> */}
+        </div>
+      </Card>
+
+      <Card className="px-4 py-6 border-0">
+        <div className="flex items-center gap-x-4 w-full justify-between">
+          <div className="flex items-center gap-x-4">
+            <MilestoneIcon size={16} />
+            <p className="text-black-darkest font-bold text-[1.125rem]">
+              Milestones ({milestoneLength})
+            </p>
+          </div>
+
+          <Button size="sm">Add Milestone</Button>
         </div>
       </Card>
     </div>
