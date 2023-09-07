@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { auth } from "@clerk/nextjs";
+import Link from "next/link";
 import { Mail, Map } from "lucide-react";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
@@ -52,11 +53,13 @@ export default async function MobileUserMenu({}: MobileUserMenuProps) {
             userId={userId as string}
           />
 
-          <MenuButton>
-            <div className="flex items-center gap-x-4">
-              <Map size={16} /> All Roadmaps
-            </div>
-          </MenuButton>
+          <Link href="/roadmaps">
+            <MenuButton>
+              <div className="flex items-center gap-x-4">
+                <Map size={16} /> All Roadmaps
+              </div>
+            </MenuButton>
+          </Link>
         </div>
       </SheetContent>
     </Sheet>
