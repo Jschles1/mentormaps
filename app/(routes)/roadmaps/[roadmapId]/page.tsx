@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs";
-import findRoadmapById from "@/lib/server/api/findRoadmapById";
+import { auth, clerkClient } from "@clerk/nextjs";
+import fetchRoadmapDetails from "@/lib/server/api/fetchRoadmapDetails";
 
 export default async function RoadmapDetailPage({
   params,
@@ -9,8 +9,8 @@ export default async function RoadmapDetailPage({
   const { userId } = auth();
   const { roadmapId } = params;
 
-  const roadmap = await findRoadmapById(roadmapId, userId as string);
-  const isMentor = roadmap?.mentorId === userId;
-  const isMentee = roadmap?.menteeId === userId;
+  const roadmapInfo = await fetchRoadmapDetails(roadmapId, userId as string);
+  console.log({ roadmapInfo });
+
   return <div>Hello Roadmap {roadmapId}</div>;
 }

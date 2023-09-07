@@ -1,6 +1,8 @@
 import prismadb from "@/lib/prisma-db";
+import { clerkClient } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 
-export default async function findRoadmapById(
+export default async function fetchRoadmapDetails(
   roadmapId: string,
   userId: string
 ) {
@@ -18,13 +20,26 @@ export default async function findRoadmapById(
           },
         ],
       },
+      include: {
+        milestones: true,
+      },
     });
 
     if (!roadmap) {
       throw new Error("Roadmap not found");
     }
 
-    return roadmap;
+    const isMentor = roadmap?.mentorId === userId;
+    let otherUser: User | null = null;
+
+    if (roadmap?.menteeId) {
+      const otherUserId = (
+        isMentor ? roadmap?.menteeId : roadmap?.mentorId
+      ) as string;
+      otherUser = await clerkClient.users.getUser(otherUserId);
+    }
+
+    return { roadmap, isMentor, otherUser };
   } catch (error: any) {
     throw new Error("Error fetching Mentee Roadmap :", error);
   }
