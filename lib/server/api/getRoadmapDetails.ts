@@ -2,6 +2,12 @@ import prismadb from "@/lib/prisma-db";
 import { clerkClient } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/server";
 
+interface UserInfo {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
 export default async function getRoadmapDetails(
   roadmapId: string,
   userId: string
@@ -30,13 +36,18 @@ export default async function getRoadmapDetails(
     }
 
     const isMentor = roadmap?.mentorId === userId;
-    let otherUser: User | null = null;
+    let otherUser: UserInfo | null = null;
 
     if (roadmap?.menteeId) {
       const otherUserId = (
         isMentor ? roadmap?.menteeId : roadmap?.mentorId
       ) as string;
-      otherUser = await clerkClient.users.getUser(otherUserId);
+      const otherUserDetails = await clerkClient.users.getUser(otherUserId);
+      otherUser = {
+        id: otherUserId,
+        firstName: otherUserDetails.firstName as string,
+        lastName: otherUserDetails.lastName as string,
+      };
     }
 
     return { roadmap, isMentor, otherUser };
