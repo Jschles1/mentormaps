@@ -37,6 +37,12 @@ export default async function getRoadmapDetails(
 
     const isMentor = roadmap?.mentorId === userId;
     let otherUser: UserInfo | null = null;
+    const currentUserDetails = await clerkClient.users.getUser(userId);
+    const currentUser = {
+      id: userId,
+      firstName: currentUserDetails.firstName as string,
+      lastName: currentUserDetails.lastName as string,
+    };
 
     if (roadmap?.menteeId) {
       const otherUserId = (
@@ -50,8 +56,8 @@ export default async function getRoadmapDetails(
       };
     }
 
-    return { roadmap, isMentor, otherUser };
+    return { roadmap, isMentor, otherUser, currentUser };
   } catch (error: any) {
-    throw new Error("Error fetching Mentee Roadmap :", error);
+    throw new Error("Error fetching Mentee Roadmap Details:", error);
   }
 }

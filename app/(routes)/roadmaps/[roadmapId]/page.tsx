@@ -1,4 +1,4 @@
-import { auth, clerkClient } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs";
 import getRoadmapDetails from "@/lib/server/api/getRoadmapDetails";
 import RoadmapDetailPageTemplate from "@/components/templates/roadmap-detail-page-template";
 
@@ -10,7 +10,7 @@ export default async function RoadmapDetailPage({
   const { userId } = auth();
   const { roadmapId } = params;
 
-  const { roadmap, isMentor, otherUser } = await getRoadmapDetails(
+  const { roadmap, isMentor, otherUser, currentUser } = await getRoadmapDetails(
     roadmapId,
     userId as string
   );
@@ -21,6 +21,7 @@ export default async function RoadmapDetailPage({
         roadmapId={roadmapId}
         roadmap={roadmap}
         otherUser={otherUser}
+        currentUser={currentUser}
         isMentor={isMentor}
       />
     </div>
