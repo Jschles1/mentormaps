@@ -15,12 +15,7 @@ import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchRoadmapInvites } from "@/lib/fetchers";
-
-type RoadmapData = {
-  roadmapId: number;
-  mentorName: string;
-  title: string;
-};
+import { RoadmapData } from "@/lib/interfaces";
 
 interface RoadmapInviteDialogProps {
   roadmapInvites: RoadmapInvite[];

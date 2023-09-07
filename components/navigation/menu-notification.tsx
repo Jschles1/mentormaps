@@ -3,12 +3,7 @@
 import { fetchRoadmapInvites } from "@/lib/fetchers";
 import { RoadmapInvite } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-
-type RoadmapData = {
-  roadmapId: number;
-  mentorName: string;
-  title: string;
-};
+import { RoadmapData } from "@/lib/interfaces";
 
 interface MenuNotificationProps {
   roadmapInvites: RoadmapInvite[];

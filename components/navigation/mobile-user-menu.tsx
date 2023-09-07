@@ -3,12 +3,10 @@
 import Image from "next/image";
 import { auth } from "@clerk/nextjs";
 import Link from "next/link";
-import { Mail, Map } from "lucide-react";
+import { Map } from "lucide-react";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
-import { Roadmap } from "@prisma/client";
-import prismadb from "@/lib/prisma-db";
 import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
@@ -22,7 +20,6 @@ export default async function MobileUserMenu({}: MobileUserMenuProps) {
   const { roadmapInvites, roadmapData } = await getRoadmapInvites(
     userId as string
   );
-  const inviteLength = roadmapInvites?.length;
 
   // TODO: Show roadmaps that the user is a part of on non-home pages
 

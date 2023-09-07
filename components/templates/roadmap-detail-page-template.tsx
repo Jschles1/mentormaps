@@ -10,16 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-interface UserInfo {
-  id: string;
-  firstName: string;
-  lastName: string;
-}
-
-interface RoadmapWithMilestones extends Roadmap {
-  milestones: Milestone[];
-}
+import { UserInfo, RoadmapWithMilestones } from "@/lib/interfaces";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestones;

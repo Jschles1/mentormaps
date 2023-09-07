@@ -1,12 +1,6 @@
 import prismadb from "@/lib/prisma-db";
 import { clerkClient } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
-
-interface UserInfo {
-  id: string;
-  firstName: string;
-  lastName: string;
-}
+import { UserInfo } from "@/lib/interfaces";
 
 export default async function getRoadmapDetails(
   roadmapId: string,
