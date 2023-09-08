@@ -119,7 +119,11 @@ export default function RoadmapDetailPageTemplate({
 
         <div className="mt-6 flex flex-col gap-y-4">
           {/* TODO: Turn into dialog */}
-          {hasNoMentee && <Button variant="secondary">Invite Mentee</Button>}
+          {hasNoMentee && (
+            <Button variant="secondary" disabled={!!roadmapInvite}>
+              Invite Mentee
+            </Button>
+          )}
           <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
           {/* <Button variant="secondary">Edit Roadmap Details</Button>
           <Button variant="destructive">Delete Roadmap</Button> */}
