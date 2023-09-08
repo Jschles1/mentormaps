@@ -1,5 +1,5 @@
 import { User } from "@clerk/nextjs/server";
-import { Milestone, Roadmap } from "@prisma/client";
+import { Milestone, Roadmap, RoadmapInvite } from "@prisma/client";
 
 export interface RoadmapData {
   roadmapId: number;
@@ -18,6 +18,7 @@ export interface UserInfo {
   lastName: string;
 }
 
-export interface RoadmapWithMilestones extends Roadmap {
+export interface RoadmapWithMilestonesAndInvites extends Roadmap {
   milestones: Milestone[];
+  RoadmapInvite: RoadmapInvite[];
 }

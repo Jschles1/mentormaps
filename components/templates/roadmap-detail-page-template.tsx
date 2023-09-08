@@ -1,7 +1,6 @@
 "use client";
 
 import { fetchRoadmapDetails } from "@/lib/fetchers";
-import { Milestone, Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import {
   Map,
@@ -16,11 +15,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UserInfo, RoadmapWithMilestones } from "@/lib/interfaces";
+import { UserInfo, RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 import { Button } from "../ui/button";
+import RoadmapDetailOptions from "../roadmaps/roadmap-detail-options";
 
 interface RoadmapDetailPageTemplateProps {
-  roadmap: RoadmapWithMilestones;
+  roadmap: RoadmapWithMilestonesAndInvites;
   isMentor: boolean;
   otherUser: UserInfo | null;
   currentUser: UserInfo | null;
@@ -72,13 +72,15 @@ export default function RoadmapDetailPageTemplate({
   return (
     <div className="flex flex-col gap-y-4">
       <Card className="px-4 py-6 border-0">
-        <div className="flex items-center gap-x-4 mb-6">
+        <div className="flex items-center gap-x-4 mb-6 w-full justify-between">
           <div className="flex items-center gap-x-4">
             <Map size={16} />
             <h1 className="text-black-darkest font-bold text-[1.125rem]">
               {data?.roadmap.title}
             </h1>
           </div>
+
+          <RoadmapDetailOptions />
         </div>
         <p className="text-gray mb-6">{data?.roadmap.goal}</p>
         <div className="flex items-center gap-x-4 mb-3">
@@ -125,8 +127,6 @@ export default function RoadmapDetailPageTemplate({
             </Button>
           )}
           <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
-          {/* <Button variant="secondary">Edit Roadmap Details</Button>
-          <Button variant="destructive">Delete Roadmap</Button> */}
         </div>
       </Card>
 
