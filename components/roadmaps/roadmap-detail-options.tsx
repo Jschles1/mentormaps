@@ -1,19 +1,13 @@
 import Image from "next/image";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "../ui/button";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
+import EditRoadmapDialog from "./edit-roadmap-dialog";
+import DeleteRoadmapDialog from "./delete-roadmap-dialog";
 
 export default function RoadmapDetailOptions() {
   return (
@@ -28,35 +22,8 @@ export default function RoadmapDetailOptions() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-y-4">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Edit Roadmap</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-              <DialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
-
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="destructive">Delete Roadmap</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-              <DialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <EditRoadmapDialog />
+        <DeleteRoadmapDialog />
       </PopoverContent>
     </Popover>
   );
