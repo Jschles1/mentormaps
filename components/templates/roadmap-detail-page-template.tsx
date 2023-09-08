@@ -44,17 +44,23 @@ export default function RoadmapDetailPageTemplate({
   });
 
   const hasNoMentee = data?.isMentor && !data?.otherUser;
+  const roadmapInvite = data?.roadmap?.RoadmapInvite[0] || null;
   const milestoneLength = data?.roadmap.milestones.length || 0;
   const hasNoMilestones = milestoneLength === 0;
   const invalidRoadmap = hasNoMentee || hasNoMilestones;
 
   console.log(JSON.stringify(data, null, 2));
+
   let mentorName: string;
   let menteeName: string;
   if (data?.isMentor) {
     mentorName = `${data?.currentUser?.firstName} ${data?.currentUser?.lastName}`;
     if (hasNoMentee) {
-      menteeName = "N/A";
+      if (roadmapInvite) {
+        menteeName = `${roadmapInvite.menteeName} (Invited)`;
+      } else {
+        menteeName = "N/A";
+      }
     } else {
       menteeName = `${data?.otherUser?.firstName} ${data?.otherUser?.lastName}`;
     }
@@ -67,10 +73,12 @@ export default function RoadmapDetailPageTemplate({
     <div className="flex flex-col gap-y-4">
       <Card className="px-4 py-6 border-0">
         <div className="flex items-center gap-x-4 mb-6">
-          <Map size={16} />
-          <h1 className="text-black-darkest font-bold text-[1.125rem]">
-            {data?.roadmap.title}
-          </h1>
+          <div className="flex items-center gap-x-4">
+            <Map size={16} />
+            <h1 className="text-black-darkest font-bold text-[1.125rem]">
+              {data?.roadmap.title}
+            </h1>
+          </div>
         </div>
         <p className="text-gray mb-6">{data?.roadmap.goal}</p>
         <div className="flex items-center gap-x-4 mb-3">

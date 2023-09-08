@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
     };
 
     let menteeId: string = "";
+    let menteeName: string = "";
 
     // Check if mentee email exists if entered, if so, get menteeId. If not, return error
     if (menteeEmail) {
@@ -41,6 +42,7 @@ export async function POST(req: NextRequest) {
 
       if (menteeSearchResult.length) {
         menteeId = menteeSearchResult[0].id;
+        menteeName = `${menteeSearchResult[0].firstName} ${menteeSearchResult[0].lastName}`;
       } else {
         return new NextResponse("Mentee email doesn't exist", { status: 400 });
       }
@@ -58,6 +60,7 @@ export async function POST(req: NextRequest) {
           roadmapId: newRoadmap.id,
           mentorId: userId,
           menteeId: menteeId,
+          menteeName: menteeName,
         },
       });
     }

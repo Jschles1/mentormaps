@@ -57,6 +57,7 @@ model RoadmapInvite {
   updatedAt DateTime @updatedAt
   Roadmap   Roadmap? @relation(fields: [roadmapId], references: [id])
   roadmapId Int?
+  menteeName String
   mentorId  String?
   menteeId  String?
 }

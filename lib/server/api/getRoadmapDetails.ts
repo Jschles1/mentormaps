@@ -22,6 +22,7 @@ export default async function getRoadmapDetails(
       },
       include: {
         milestones: true,
+        RoadmapInvite: true,
       },
     });
 
