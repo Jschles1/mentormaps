@@ -17,6 +17,7 @@ import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
+import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -140,9 +141,14 @@ export default function RoadmapDetailPageTemplate({
           <div className="mt-6 flex flex-col gap-y-4">
             {/* TODO: Turn into dialog */}
             {hasNoMentee && (
-              <Button variant="secondary" disabled={!!roadmapInvite}>
-                Invite Mentee
-              </Button>
+              <InviteMenteeDialog
+                trigger={
+                  <Button variant="secondary" disabled={!!roadmapInvite}>
+                    Invite Mentee
+                  </Button>
+                }
+                roadmapId={roadmapId}
+              />
             )}
             {isRoadmapPending && (
               <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
