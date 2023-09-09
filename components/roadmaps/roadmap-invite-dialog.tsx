@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import axios from "axios";
+import { useParams } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -28,6 +29,7 @@ export default function RoadmapInviteDialog({
   roadmapData,
   userId,
 }: RoadmapInviteDialogProps) {
+  const params = useParams();
   const queryClient = useQueryClient();
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
   const { data } = useQuery({
@@ -48,6 +50,11 @@ export default function RoadmapInviteDialog({
       console.log("Mutation success!", data);
       queryClient.invalidateQueries({ queryKey: roadmapInvitesQueryKey });
       queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
+      if (params.roadmapId) {
+        queryClient.invalidateQueries({
+          queryKey: ["roadmap", params.roadmapId],
+        });
+      }
     },
   });
   const inviteLength = data?.roadmapInvites.length;

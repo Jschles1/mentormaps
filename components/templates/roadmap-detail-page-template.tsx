@@ -2,6 +2,7 @@
 
 import { fetchRoadmapDetails } from "@/lib/fetchers";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import {
   Map,
   Crown,
@@ -9,15 +10,13 @@ import {
   BarChart2,
   MilestoneIcon,
 } from "lucide-react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { UserInfo, RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 import { Button } from "../ui/button";
-import RoadmapDetailOptions from "../roadmaps/roadmap-detail-options";
+import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
+import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -34,7 +33,7 @@ export default function RoadmapDetailPageTemplate({
   currentUser,
   roadmapId,
 }: RoadmapDetailPageTemplateProps) {
-  const roadmapQueryKey = ["roadmap", roadmapId];
+  const roadmapQueryKey = ["roadmap", roadmapId, currentUser?.id];
   const { data } = useQuery({
     queryKey: roadmapQueryKey,
     queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
@@ -46,6 +45,7 @@ export default function RoadmapDetailPageTemplate({
   const hasNoMentee = data?.isMentor && !data?.otherUser;
   const roadmapInvite = data?.roadmap?.RoadmapInvite[0] || null;
   const milestoneLength = data?.roadmap.milestones.length || 0;
+  const isRoadmapPending = data?.roadmap.status === "Pending";
   const hasNoMilestones = milestoneLength === 0;
   const invalidRoadmap = hasNoMentee || hasNoMilestones;
 
@@ -53,6 +53,7 @@ export default function RoadmapDetailPageTemplate({
 
   let mentorName: string;
   let menteeName: string;
+
   if (data?.isMentor) {
     mentorName = `${data?.currentUser?.firstName} ${data?.currentUser?.lastName}`;
     if (hasNoMentee) {
@@ -80,7 +81,23 @@ export default function RoadmapDetailPageTemplate({
             </h1>
           </div>
 
-          <RoadmapDetailOptions />
+          {data?.isMentor && (
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-lighter-blue-gray focus:bg-lighter-blue-gray focus-within:bg-lighter-blue-gray focus-visible:bg-lighter-blue-gray active:bg-lighter-blue-gray"
+                >
+                  <Image src={IconVerticalEllipsis} alt="Roadmap Options" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="flex flex-col gap-y-4">
+                <EditRoadmapDialog />
+                <DeleteRoadmapDialog />
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
         <p className="text-gray mb-6">{data?.roadmap.goal}</p>
         <div className="flex items-center gap-x-4 mb-3">
@@ -119,15 +136,19 @@ export default function RoadmapDetailPageTemplate({
           </div>
         )}
 
-        <div className="mt-6 flex flex-col gap-y-4">
-          {/* TODO: Turn into dialog */}
-          {hasNoMentee && (
-            <Button variant="secondary" disabled={!!roadmapInvite}>
-              Invite Mentee
-            </Button>
-          )}
-          <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
-        </div>
+        {data?.isMentor && (
+          <div className="mt-6 flex flex-col gap-y-4">
+            {/* TODO: Turn into dialog */}
+            {hasNoMentee && (
+              <Button variant="secondary" disabled={!!roadmapInvite}>
+                Invite Mentee
+              </Button>
+            )}
+            {isRoadmapPending && (
+              <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
+            )}
+          </div>
+        )}
       </Card>
 
       <Card className="px-4 py-6 border-0">
