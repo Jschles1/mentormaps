@@ -130,7 +130,7 @@ export default function RoadmapDetailPageTemplate({
               )}
               {hasNoMilestones && (
                 <li className="text-sm text-orange">
-                  - A Milestone has been added.
+                  - A Milestone has been added by the roadmap mentor.
                 </li>
               )}
             </ul>
@@ -139,7 +139,6 @@ export default function RoadmapDetailPageTemplate({
 
         {data?.isMentor && (
           <div className="mt-6 flex flex-col gap-y-4">
-            {/* TODO: Turn into dialog */}
             {hasNoMentee && (
               <InviteMenteeDialog
                 trigger={
@@ -166,7 +165,7 @@ export default function RoadmapDetailPageTemplate({
             </p>
           </div>
 
-          <Button size="sm">Add Milestone</Button>
+          {data?.isMentor && <Button size="sm">Add Milestone</Button>}
         </div>
       </Card>
     </div>
