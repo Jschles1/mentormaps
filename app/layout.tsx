@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import Providers from "./providers";
+import QueryProviders from "./query-providers";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,10 +21,10 @@ export default function RootLayout({
     <ClerkProvider afterSignInUrl="/roadmaps">
       <html lang="en">
         <body className={inter.className}>
-          <Providers>
+          <QueryProviders>
             {children}
             <Toaster />
-          </Providers>
+          </QueryProviders>
         </body>
       </html>
     </ClerkProvider>
