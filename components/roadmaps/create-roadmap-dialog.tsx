@@ -79,6 +79,7 @@ export default function CreateRoadMapDialog({
       queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
       toast({
         title: "Successfully created Roadmap!",
+        description: "You can now start adding milestones to your roadmap.",
       });
     },
     onError: (error: any) => {
