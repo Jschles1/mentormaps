@@ -1,10 +1,17 @@
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Logo from "public/images/logo-light.svg";
 import AddButton from "./add-button";
 import MobileUserMenu from "./mobile-user-menu";
+import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 
 export default async function Navigation() {
+  const { userId } = auth();
+
+  const { roadmapInvites, roadmapData } = await getRoadmapInvites(
+    userId as string
+  );
+
   return (
     <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
       <div className="flex items-center gap-x-4">
@@ -23,7 +30,11 @@ export default async function Navigation() {
           }}
           userProfileMode="modal"
         />
-        <MobileUserMenu />
+        <MobileUserMenu
+          roadmapData={roadmapData}
+          roadmapInvites={roadmapInvites}
+          userId={userId as string}
+        />
       </div>
     </div>
   );

@@ -14,8 +14,7 @@ import MenuButton from "../navigation/menu-button";
 import { RoadmapInvite } from "@prisma/client";
 import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchRoadmapInvites } from "@/lib/fetchers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RoadmapData } from "@/lib/interfaces";
 
 interface RoadmapInviteDialogProps {
@@ -32,13 +31,6 @@ export default function RoadmapInviteDialog({
   const params = useParams();
   const queryClient = useQueryClient();
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
-  const { data } = useQuery({
-    queryKey: roadmapInvitesQueryKey,
-    queryFn: fetchRoadmapInvites,
-    initialData: { roadmapInvites, roadmapData },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
 
   const inviteResponseMutation = useMutation({
     mutationFn: (variables: { roadmapId: number; accepted: boolean }) =>
@@ -57,7 +49,7 @@ export default function RoadmapInviteDialog({
       }
     },
   });
-  const inviteLength = data?.roadmapInvites.length;
+  const inviteLength = roadmapInvites?.length;
   const disableInviteButton = !inviteLength;
 
   async function handleAccept(id: number) {
@@ -84,8 +76,8 @@ export default function RoadmapInviteDialog({
         <DialogHeader>
           <DialogTitle className="mb-6">Pending Invites</DialogTitle>
           <div className="flex flex-col items-start gap-y-4">
-            {data?.roadmapData?.length ? (
-              data?.roadmapData.map((data: RoadmapData) => (
+            {roadmapData?.length ? (
+              roadmapData.map((data: RoadmapData) => (
                 <div
                   key={data.roadmapId}
                   className="bg-lighter-blue-gray p-3 rounded w-full flex flex-col gap-y-2"
