@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { fetchRoadmapDetails } from "@/lib/fetchers";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -35,6 +36,7 @@ export default function RoadmapDetailPageTemplate({
   roadmapId,
 }: RoadmapDetailPageTemplateProps) {
   const roadmapQueryKey = ["roadmap", roadmapId, currentUser?.id];
+  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { data } = useQuery({
     queryKey: roadmapQueryKey,
     queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
@@ -42,6 +44,10 @@ export default function RoadmapDetailPageTemplate({
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
+
+  function handlePopoverOpenChange(open: boolean) {
+    setIsPopoverOpen(open);
+  }
 
   const hasNoMentee = data?.isMentor && !data?.otherUser;
   const roadmapInvite = data?.roadmap?.RoadmapInvite[0] || null;
@@ -83,7 +89,10 @@ export default function RoadmapDetailPageTemplate({
           </div>
 
           {data?.isMentor && (
-            <Popover>
+            <Popover
+              open={isPopoverOpen}
+              onOpenChange={handlePopoverOpenChange}
+            >
               <PopoverTrigger asChild>
                 <Button
                   variant="ghost"
@@ -94,7 +103,11 @@ export default function RoadmapDetailPageTemplate({
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="flex flex-col gap-y-4">
-                <EditRoadmapDialog />
+                <EditRoadmapDialog
+                  closePopover={() => setIsPopoverOpen(false)}
+                  title={data?.roadmap.title}
+                  goal={data?.roadmap.goal}
+                />
                 <DeleteRoadmapDialog />
               </PopoverContent>
             </Popover>
