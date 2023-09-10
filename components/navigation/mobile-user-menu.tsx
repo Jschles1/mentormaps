@@ -38,22 +38,17 @@ export default function MobileUserMenu({
 
   const inviteLength = data?.roadmapInvites.length;
 
-  function handleOpen() {
-    setOpen(true);
-  }
-
   function handleClose() {
     setOpen(false);
   }
 
-  // Needed to close sheet on click outside
   function handleOpenChange(open: boolean) {
     setOpen(open);
   }
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
-      <SheetTrigger asChild onClick={handleOpen}>
+      <SheetTrigger asChild>
         <div className="relative">
           <Button
             variant="ghost"
