@@ -87,7 +87,7 @@ export default function InviteMenteeDialog({
   function handleOpenChange(open: boolean) {
     setIsOpen(open);
     if (!open) {
-      form.reset();
+      form.reset({ menteeEmail: "", roadmapId: roadmapId.toString() });
     }
   }
 
