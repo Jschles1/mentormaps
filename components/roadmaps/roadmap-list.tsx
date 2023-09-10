@@ -29,7 +29,7 @@ export default function RoadmapList({ type, roadmaps }: RoadmapListProps) {
           {title}
         </p>
       </div>
-      <div>
+      <div className="flex flex-col gap-y-4">
         {roadmaps.map((roadmap) => (
           <RoadmapCard key={roadmap.id} roadmap={roadmap} />
         ))}
