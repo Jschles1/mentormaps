@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,7 @@ export default function CreateRoadMapDialog({
   trigger,
 }: CreateRoadMapDialogProps) {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,6 +77,9 @@ export default function CreateRoadMapDialog({
     onSuccess: (_) => {
       setIsOpen(false);
       queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
+      toast({
+        title: "Successfully created Roadmap!",
+      });
     },
     onError: (error: any) => {
       const errorMessage = error?.response?.data;
