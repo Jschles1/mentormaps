@@ -42,20 +42,21 @@ model Roadmap {
 }
 
 model Milestone {
-  id          Int             @id @default(autoincrement())
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  startedAt   DateTime?
-  completedAt DateTime?
-  attempts    Int             @default(0)
-  title       String
-  description String
-  subtasks    String[]
-  resources   String[]
-  status      MilestoneStatus @default(Pending)
-  order       Int
-  Roadmap     Roadmap?        @relation(fields: [roadmapId], references: [id])
-  roadmapId   Int?
+  id                     Int             @id @default(autoincrement())
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
+  startedAt              DateTime?
+  completedAt            DateTime?
+  expectedCompletionTime DateTime?
+  attempts               Int             @default(0)
+  title                  String
+  description            String
+  subtasks               String[]
+  resources              String[]
+  status                 MilestoneStatus @default(Pending)
+  order                  Int
+  Roadmap                Roadmap?        @relation(fields: [roadmapId], references: [id])
+  roadmapId              Int?
 }
 
 model RoadmapInvite {
