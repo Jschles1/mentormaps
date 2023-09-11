@@ -19,11 +19,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -96,7 +94,6 @@ export default function EditRoadmapDialog({
     try {
       updateRoadmapMutation.mutate(values);
     } catch (error) {
-      console.log({ error });
       // For preventing unhandled promise rejection
     }
   }
