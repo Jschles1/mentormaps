@@ -34,7 +34,7 @@ export default function RoadmapInviteDialog({
 
   const inviteResponseMutation = useMutation({
     mutationFn: (variables: { roadmapId: number; accepted: boolean }) =>
-      axios.post("/api/roadmap-invites", {
+      axios.post("/api/roadmap-invites/invite-response", {
         accepted: variables.accepted,
         roadmapId: variables.roadmapId,
       }),
