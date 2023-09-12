@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
+import CreateMilestoneDialog from "../milestones/create-milestone-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 
@@ -178,7 +179,11 @@ export default function RoadmapDetailPageTemplate({
             </p>
           </div>
 
-          {data?.isMentor && <Button size="sm">Add Milestone</Button>}
+          {data?.isMentor && (
+            <CreateMilestoneDialog
+              trigger={<Button size="sm">Add Milestone</Button>}
+            />
+          )}
         </div>
       </Card>
     </div>
