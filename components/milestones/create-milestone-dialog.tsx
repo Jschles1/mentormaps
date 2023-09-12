@@ -170,7 +170,7 @@ export default function CreateMilestoneDialog({
   // });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submitting");
+    console.log("submitting", values);
     try {
       // createRoadmapMutation.mutate(values);
     } catch (error) {
@@ -284,7 +284,7 @@ export default function CreateMilestoneDialog({
                     <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="e.g. Learn JavaScript"
+                        placeholder="e.g. Learn JavaScript Basics"
                         error={!!errors.title}
                         {...field}
                       />
@@ -304,8 +304,8 @@ export default function CreateMilestoneDialog({
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g. Learn JavaScript"
-                        // error={!!errors.description}
+                        placeholder="e.g. Learn JavaScript basics such as variables, functions, and objects."
+                        error={!!errors.description}
                         {...field}
                       />
                     </FormControl>
