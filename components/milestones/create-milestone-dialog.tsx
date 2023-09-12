@@ -269,9 +269,6 @@ export default function CreateMilestoneDialog({
   const enteredSubtasks = form.getValues("subtasks") || [];
   const enteredResources = form.getValues("resources") || [];
 
-  console.log(form.getValues());
-  // console.log(form.formState);
-
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
