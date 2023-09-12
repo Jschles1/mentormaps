@@ -38,6 +38,23 @@ export default async function getRoadmapDetails(
       firstName: currentUserDetails.firstName as string,
       lastName: currentUserDetails.lastName as string,
     };
+    let roadmapMilestones = roadmap?.milestones;
+
+    // If user is mentee, remove description, resources, and subtasks from milestones not active or completed
+    if (!isMentor) {
+      roadmapMilestones = roadmapMilestones?.map((milestone) => {
+        if (milestone.status !== "Active" && milestone.status !== "Completed") {
+          return {
+            ...milestone,
+            description: "",
+            resources: [],
+            subtasks: [],
+          };
+        } else {
+          return milestone;
+        }
+      });
+    }
 
     if (roadmap?.menteeId) {
       const otherUserId = (
@@ -51,7 +68,12 @@ export default async function getRoadmapDetails(
       };
     }
 
-    return { roadmap, isMentor, otherUser, currentUser };
+    return {
+      roadmap: { ...roadmap, milestones: roadmapMilestones },
+      isMentor,
+      otherUser,
+      currentUser,
+    };
   } catch (error: any) {
     throw new Error("Error fetching Mentee Roadmap Details:", error);
   }
