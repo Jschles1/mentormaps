@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider afterSignInUrl="/roadmaps">
-      <html lang="en">
+      <html className="!h-auto" lang="en">
         <body className={inter.className}>
           <QueryProviders>
             {children}
