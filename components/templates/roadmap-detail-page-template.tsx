@@ -3,6 +3,7 @@
 import * as React from "react";
 import { fetchRoadmapDetails } from "@/lib/fetchers";
 import { useQuery } from "@tanstack/react-query";
+import { Milestone } from "@prisma/client";
 import Image from "next/image";
 import {
   Map,
@@ -20,6 +21,7 @@ import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
 import CreateMilestoneDialog from "../milestones/create-milestone-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
+import MilestoneCard from "../milestones/milestone-card";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -186,6 +188,16 @@ export default function RoadmapDetailPageTemplate({
           )}
         </div>
       </Card>
+
+      <div className="flex flex-col gap-y-4">
+        {data?.roadmap.milestones.map((milestone: Milestone) => (
+          <MilestoneCard
+            key={milestone.id}
+            milestone={milestone}
+            isMentor={isMentor}
+          />
+        ))}
+      </div>
     </div>
   );
 }
