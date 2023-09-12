@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useParams } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 import { CheckCircle2, X, LinkIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,7 +30,6 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { cn } from "@/lib/utils";
 import { Separator } from "../ui/separator";
 
 const urlSchema = z.string().url().optional().or(z.literal(""));
@@ -132,6 +133,8 @@ export default function CreateMilestoneDialog({
   trigger,
 }: CreateMilestoneDialogProps) {
   const queryClient = useQueryClient();
+  const { userId } = useAuth();
+  const params = useParams();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -149,30 +152,33 @@ export default function CreateMilestoneDialog({
   form.watch("subtasks");
   form.watch("resources");
 
-  // const createRoadmapMutation = useMutation({
-  //   mutationFn: (variables: z.infer<typeof formSchema>) =>
-  //     axios.post("/api/create-roadmap", {
-  //       title: variables.title,
-  //       goal: variables.goal,
-  //       menteeEmail: variables?.menteeEmail?.trim(),
-  //     }),
-  //   onSuccess: (_) => {
-  //     setIsOpen(false);
-  //     queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
-  //     toast({
-  //       title: "Successfully created Roadmap!",
-  //       description: "You can now start adding milestones to your roadmap.",
-  //     });
-  //   },
-  //   onError: (error: any) => {
-  //     const errorMessage = error?.response?.data;
-  //   },
-  // });
+  const createMilestoneMutation = useMutation({
+    mutationFn: (variables: z.infer<typeof formSchema>) =>
+      axios.post(`/api/roadmaps/${params.roadmapId}/milestones`, {
+        title: variables.title,
+        description: variables.description,
+        subtasks: variables.subtasks,
+        resources: variables.resources,
+      }),
+    onSuccess: async (_) => {
+      console.log("API call successful.");
+      setIsOpen(false);
+      await queryClient.refetchQueries({
+        queryKey: ["roadmap", params.roadmapId, userId],
+      });
+      toast({
+        title: "Successfully added milestone!",
+        // description: "You can now start adding milestones to your roadmap.",
+      });
+    },
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+    },
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submitting", values);
     try {
-      // createRoadmapMutation.mutate(values);
+      createMilestoneMutation.mutate(values);
     } catch (error) {
       // For preventing unhandled promise rejection
     }
@@ -317,6 +323,7 @@ export default function CreateMilestoneDialog({
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="currentSubtask"
@@ -458,6 +465,16 @@ export default function CreateMilestoneDialog({
                 className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
               >
                 Create Milestone
+              </Button>
+
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
               </Button>
             </form>
           </Form>
