@@ -184,6 +184,11 @@ export default function CreateMilestoneDialog({
     if (currentSubtask) {
       form.setValue("subtasks", [...subtasks, currentSubtask]);
       form.resetField("currentSubtask");
+    } else {
+      form.setError("currentSubtask", {
+        type: "manual",
+        message: "Subtask is required.",
+      });
     }
   }
 
