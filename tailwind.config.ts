@@ -29,6 +29,8 @@ module.exports = {
       white: "#FFFFFF",
       orange: "#EA5555",
       salmon: "#FF9898",
+      lime: "#22C55E",
+      gold: "#f59E0B",
     },
     screens: {
       sm: "375px",
@@ -104,4 +106,5 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  safelist: ["text-lime", "text-gold"],
 };

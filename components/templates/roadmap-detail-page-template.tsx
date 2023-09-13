@@ -23,6 +23,7 @@ import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 import MilestoneCard from "../milestones/milestone-card";
 import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
+import { cn, roadmapStatusTextClass } from "@/lib/utils";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -121,7 +122,10 @@ export default function RoadmapDetailPageTemplate({
         <div className="flex items-center gap-x-4 mb-3">
           <BarChart2 size={16} />
           <p className="text-black-darkest text-sm">
-            Status: {data?.roadmap.status}
+            Status:{" "}
+            <span className={cn(roadmapStatusTextClass(data?.roadmap.status))}>
+              {data?.roadmap.status}
+            </span>
           </p>
         </div>
         <div className="flex items-center gap-x-4 mb-3">
