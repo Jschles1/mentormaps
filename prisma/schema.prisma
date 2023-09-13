@@ -74,6 +74,14 @@ model RoadmapInvite {
   menteeId   String?
 }
 
+model Notification {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  message   String
+  userId    String?
+}
+
 model Appointment {
   id              Int      @id @default(autoincrement())
   createdAt       DateTime @default(now())
