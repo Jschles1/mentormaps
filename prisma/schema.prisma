@@ -54,6 +54,9 @@ model Milestone {
   description            String
   subtasks               String[]
   resources              String[]
+  mentorFeedbackComment  String?
+  menteeSolutionComment  String?
+  menteeSolutionUrl      String?
   status                 MilestoneStatus @default(Pending)
   order                  Int
   Roadmap                Roadmap?        @relation(fields: [roadmapId], references: [id])
