@@ -63,6 +63,13 @@ export async function POST(req: NextRequest) {
           menteeName: menteeName,
         },
       });
+
+      const notification = await prismadb.notification.create({
+        data: {
+          userId: menteeId,
+          message: `You've been invited to a new roadmap named ${title}!`,
+        },
+      });
     }
 
     return NextResponse.json({ message: "Success" });

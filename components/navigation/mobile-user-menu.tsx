@@ -9,25 +9,29 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
 import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
-import { RoadmapInvite } from "@prisma/client";
+import { RoadmapInvite, Notification } from "@prisma/client";
 import { RoadmapData } from "@/lib/interfaces";
 import { useQuery } from "@tanstack/react-query";
-import { fetchRoadmapInvites } from "@/lib/fetchers";
+import { fetchNotifications, fetchRoadmapInvites } from "@/lib/fetchers";
+import NotificationDialog from "../notifications/notification-dialog";
 
 interface MobileUserMenuProps {
   roadmapInvites: RoadmapInvite[];
   roadmapData: RoadmapData[];
   userId: string;
+  notifications: Notification[];
 }
 
 export default function MobileUserMenu({
   roadmapData,
   roadmapInvites,
   userId,
+  notifications,
 }: MobileUserMenuProps) {
   // TODO: Show roadmaps that the user is a part of on non-home pages
   const [open, setOpen] = React.useState(false);
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
+  const notificationsQueryKey = ["notifications", userId];
   const { data } = useQuery({
     queryKey: roadmapInvitesQueryKey,
     queryFn: fetchRoadmapInvites,
@@ -36,7 +40,16 @@ export default function MobileUserMenu({
     refetchOnMount: false,
   });
 
-  const inviteLength = data?.roadmapInvites.length;
+  const { data: notificationsData } = useQuery({
+    queryKey: notificationsQueryKey,
+    queryFn: fetchNotifications,
+    initialData: notifications,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+
+  // const inviteLength = data?.roadmapInvites.length;
+  const notificationLength = notificationsData?.length;
 
   function handleClose() {
     setOpen(false);
@@ -57,15 +70,17 @@ export default function MobileUserMenu({
           >
             <Image src={IconVerticalEllipsis} alt="Menu" />
           </Button>
-          {!!inviteLength && (
+          {!!notificationLength && (
             <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full">
-              {inviteLength}
+              {notificationLength}
             </div>
           )}
         </div>
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">
         <div className="flex flex-col gap-4">
+          <NotificationDialog notifications={notificationsData} />
+
           <RoadmapInviteDialog
             roadmapInvites={data?.roadmapInvites}
             roadmapData={data?.roadmapData}

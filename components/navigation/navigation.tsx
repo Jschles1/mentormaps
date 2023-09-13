@@ -4,6 +4,8 @@ import Logo from "public/images/logo-light.svg";
 import AddButton from "./add-button";
 import MobileUserMenu from "./mobile-user-menu";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
+import prismadb from "@/lib/prisma-db";
+import getNotifications from "@/lib/server/api/getNotifications";
 
 export default async function Navigation() {
   const { userId } = auth();
@@ -11,6 +13,8 @@ export default async function Navigation() {
   const { roadmapInvites, roadmapData } = await getRoadmapInvites(
     userId as string
   );
+
+  const notifications = await getNotifications(userId as string);
 
   return (
     <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
@@ -34,6 +38,7 @@ export default async function Navigation() {
           roadmapData={roadmapData}
           roadmapInvites={roadmapInvites}
           userId={userId as string}
+          notifications={notifications}
         />
       </div>
     </div>
