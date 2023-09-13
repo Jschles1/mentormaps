@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -66,7 +67,12 @@ export default function MilestoneCard({
   const MilestoneIcon = MilestoneIconsByStatus[milestoneStatus];
 
   return (
-    <Card className="px-4 py-6 border-0">
+    <Card
+      className={cn(
+        "px-4 py-6 border-0",
+        isMilestoneLocked && "bg-light-blue-gray"
+      )}
+    >
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem className="border-0" value="item-1">
           <AccordionTrigger
@@ -75,7 +81,14 @@ export default function MilestoneCard({
           >
             <div className="flex items-center gap-x-4">
               <MilestoneIcon />
-              <p className="text-[0.938rem] text-black-darkest">{title}</p>
+              <p
+                className={cn(
+                  "text-[0.938rem] text-black-darkest",
+                  isMilestoneLocked && "text-gray"
+                )}
+              >
+                {title}
+              </p>
             </div>
           </AccordionTrigger>
           <AccordionContent className="pt-4 [&>div]:pb-0 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-4">
@@ -126,6 +139,8 @@ export default function MilestoneCard({
                   </div>
                 ))}
               </div>
+
+              <div>{/* Mentor Options or Mentee Options */}</div>
             </div>
           </AccordionContent>
         </AccordionItem>
