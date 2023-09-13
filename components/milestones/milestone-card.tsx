@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/accordion";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -61,6 +63,9 @@ export default function MilestoneCard({
   const { title, description, status, subtasks, resources } = milestone;
   let milestoneStatus: MilestoneIconStatuses = status;
   const isMilestoneLocked = status === "Pending" && !isMentor;
+  const isPendingReview = status === "PendingCompletionReview" && isMentor;
+  const isCompletionSubmitted =
+    status === "PendingCompletionReview" && !isMentor;
   if (isMilestoneLocked) {
     milestoneStatus = "Locked";
   }
@@ -140,7 +145,26 @@ export default function MilestoneCard({
                 ))}
               </div>
 
-              <div>{/* Mentor Options or Mentee Options */}</div>
+              <Separator className="my-4" />
+
+              <div className="flex flex-col gap-y-2">
+                {/* Mentor Options or Mentee Options */}
+                {isMentor ? (
+                  <>
+                    {isPendingReview && (
+                      <Button variant="secondary">
+                        Review Mentee Submission
+                      </Button>
+                    )}
+                    <Button>Edit Milestone</Button>
+                    <Button variant="destructive">Delete Milestone</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="secondary">Submit Completion</Button>
+                  </>
+                )}
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>
