@@ -3,7 +3,7 @@ import CreateRoadMapDialog from "./create-roadmap-dialog";
 
 export default function NoRoadmaps() {
   return (
-    <div className="flex items-center justify-center h-full">
+    <div className="flex items-center justify-center h-[calc(100vh-8rem)]">
       <div className="text-center flex flex-col items-center gap-4 text-gray font-bold text-[1.125rem]">
         <p className="text-gray">
           You currently do not own or belong to any roadmaps.
