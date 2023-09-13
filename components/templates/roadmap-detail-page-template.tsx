@@ -22,6 +22,7 @@ import CreateMilestoneDialog from "../milestones/create-milestone-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 import MilestoneCard from "../milestones/milestone-card";
+import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -166,7 +167,11 @@ export default function RoadmapDetailPageTemplate({
               />
             )}
             {isRoadmapPending && (
-              <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
+              <BeginRoadmapDialog
+                trigger={
+                  <Button disabled={invalidRoadmap}>Begin Roadmap</Button>
+                }
+              />
             )}
           </div>
         )}
