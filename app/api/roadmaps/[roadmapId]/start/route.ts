@@ -32,6 +32,10 @@ export async function POST(
       return new NextResponse("Roadmap does not exist", { status: 401 });
     }
 
+    if (roadmap?.status === "Active") {
+      return new NextResponse("Roadmap is already active", { status: 400 });
+    }
+
     if (!roadmap?.menteeId) {
       return new NextResponse("Roadmap cannot be started without mentee", {
         status: 400,
