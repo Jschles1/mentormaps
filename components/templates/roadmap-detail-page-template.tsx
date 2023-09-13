@@ -5,13 +5,7 @@ import { fetchRoadmapDetails } from "@/lib/fetchers";
 import { useQuery } from "@tanstack/react-query";
 import { Milestone } from "@prisma/client";
 import Image from "next/image";
-import {
-  Map,
-  Crown,
-  GraduationCap,
-  BarChart2,
-  MilestoneIcon,
-} from "lucide-react";
+import { Map, MilestoneIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { UserInfo, RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 import { Button } from "../ui/button";
@@ -60,8 +54,6 @@ export default function RoadmapDetailPageTemplate({
   const isRoadmapPending = data?.roadmap.status === "Pending";
   const hasNoMilestones = milestoneLength === 0;
   const invalidRoadmap = hasNoMentee || hasNoMilestones;
-
-  console.log(JSON.stringify(data, null, 2));
 
   let mentorName: string;
   let menteeName: string;
@@ -119,22 +111,24 @@ export default function RoadmapDetailPageTemplate({
           )}
         </div>
         <p className="text-gray mb-6">{data?.roadmap.goal}</p>
-        <div className="flex items-center gap-x-4 mb-3">
-          <BarChart2 size={16} />
-          <p className="text-black-darkest text-sm">
-            Status:{" "}
-            <span className={cn(roadmapStatusTextClass(data?.roadmap.status))}>
-              {data?.roadmap.status}
-            </span>
+        <div className="mb-3">
+          <p className="text-xs text-gray">Status</p>
+          <p
+            className={cn(
+              "text-sm text-black-darkest font-bold",
+              roadmapStatusTextClass(data?.roadmap.status)
+            )}
+          >
+            {data?.roadmap.status}
           </p>
         </div>
-        <div className="flex items-center gap-x-4 mb-3">
-          <Crown size={16} />
-          <p className="text-black-darkest text-sm">Mentor: {mentorName}</p>
+        <div className="mb-3">
+          <p className="text-xs text-gray">Mentor</p>
+          <p className="text-sm text-black-darkest font-bold">{mentorName}</p>
         </div>
-        <div className="flex items-center gap-x-4 mb-3">
-          <GraduationCap size={16} />
-          <p className="text-black-darkest text-sm">Mentee: {menteeName}</p>
+        <div className="mb-3">
+          <p className="text-xs text-gray">Mentee</p>
+          <p className="text-sm text-black-darkest font-bold">{menteeName}</p>
         </div>
 
         {invalidRoadmap && (
