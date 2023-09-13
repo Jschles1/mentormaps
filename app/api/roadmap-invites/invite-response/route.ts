@@ -38,6 +38,13 @@ export async function POST(req: NextRequest) {
           menteeId: userId,
         },
       });
+
+      await prismadb.notification.create({
+        data: {
+          userId: roadmapInvite.mentorId,
+          message: `${roadmapInvite.menteeName} has accepted your roadmap invite!`,
+        },
+      });
     }
 
     // Delete roadmapInvite

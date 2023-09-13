@@ -1,6 +1,5 @@
 import { auth, clerkClient } from "@clerk/nextjs";
 import { NextResponse, NextRequest } from "next/server";
-import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 import prismadb from "@/lib/prisma-db";
 
 export async function POST(req: NextRequest) {
@@ -46,6 +45,13 @@ export async function POST(req: NextRequest) {
           mentorId: userId,
           menteeName: `${menteeSearchResult[0].firstName} ${menteeSearchResult[0].lastName}`,
           menteeId: menteeSearchResult[0].id,
+        },
+      });
+
+      await prismadb.notification.create({
+        data: {
+          userId: menteeSearchResult[0].id,
+          message: `You've been invited to a new roadmap!`,
         },
       });
 
