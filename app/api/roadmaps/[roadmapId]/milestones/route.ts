@@ -32,7 +32,7 @@ export async function POST(
     const newMilestoneOrder = existingMilestones.length + 1;
 
     // Store name and URL as one string
-    const resourceStrings = resources.map(
+    const resourceStrings = resources?.map(
       (resource: { name: string; href: string }) =>
         `${resource.name}___***___${resource.href}`
     );
@@ -50,6 +50,7 @@ export async function POST(
 
     return NextResponse.json({ message: "Success" });
   } catch (error) {
+    console.log({ error });
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

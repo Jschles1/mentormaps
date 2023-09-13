@@ -125,24 +125,30 @@ export default function MilestoneCard({
 
             <div>
               <p className="text-xs text-gray mb-2">Resources</p>
+              {!resources.length && (
+                <p className="text-sm text-black-darkest font-bold -mt-2">
+                  N/A
+                </p>
+              )}
               <div className="flex flex-col gap-y-2">
-                {resources.map((resource) => (
-                  <div
-                    key={resource}
-                    className="max-w-[calc(100vw-4rem)] overflow-hidden flex items-center gap-x-2"
-                  >
-                    <div className="flex flex-1 items-center gap-x-2 px-4 py-4 relative bg-lighter-blue-gray rounded-md ">
-                      <LinkIcon className="text-dark-lavender" size={16} />
-                      <Link
-                        href={getResourceData(resource).href}
-                        target="_blank"
-                        className="text-xs underline flex-1 text-black-darkest text-bold overflow-x-hidden break-words max-w-[calc(100vw-11rem)]"
-                      >
-                        {getResourceData(resource).name}
-                      </Link>
+                {!!resources.length &&
+                  resources.map((resource) => (
+                    <div
+                      key={resource}
+                      className="max-w-[calc(100vw-4rem)] overflow-hidden flex items-center gap-x-2"
+                    >
+                      <div className="flex flex-1 items-center gap-x-2 px-4 py-4 relative bg-lighter-blue-gray rounded-md ">
+                        <LinkIcon className="text-dark-lavender" size={16} />
+                        <Link
+                          href={getResourceData(resource).href}
+                          target="_blank"
+                          className="text-xs underline flex-1 text-black-darkest text-bold overflow-x-hidden break-words max-w-[calc(100vw-11rem)]"
+                        >
+                          {getResourceData(resource).name}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
 
               <Separator className="my-4" />
