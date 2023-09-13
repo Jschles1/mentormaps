@@ -4,8 +4,8 @@ import {
   CheckCircle2,
   Lock,
   XCircle,
-  Circle,
   LinkIcon,
+  CircleDot,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
@@ -43,7 +43,7 @@ const MilestoneIconsByStatus: {
   Pending: () => <CircleEllipsis size={16} color="orange" />,
   Locked: () => <Lock size={16} color="gray" />,
   Completed: () => <CheckCircle2 size={16} color="green" />,
-  Active: () => <Circle size={16} color="green" />,
+  Active: () => <CircleDot size={16} color="green" />,
   Rejected: () => <XCircle size={16} color="red" />,
   PendingCompletionReview: () => <CircleEllipsis size={16} color="orange" />,
 };
