@@ -14,7 +14,8 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { title, description, resources, subtasks } = await req.json();
+    const { title, description, resources, subtasks, menteeId } =
+      await req.json();
 
     // Basic form validation
     if (!title || !description) {
@@ -47,6 +48,15 @@ export async function POST(
         roadmapId: parseInt(params.roadmapId),
       },
     });
+
+    if (menteeId) {
+      await prismadb.notification.create({
+        data: {
+          userId: menteeId,
+          message: `Your mentor has added a new milestone ${title} to your roadmap!`,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "Success" });
   } catch (error) {

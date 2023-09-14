@@ -187,6 +187,7 @@ export default function RoadmapDetailPageTemplate({
           {data?.isMentor && (
             <CreateMilestoneDialog
               trigger={<Button size="sm">Add Milestone</Button>}
+              menteeId={data?.otherUser?.id}
             />
           )}
         </div>

@@ -15,13 +15,10 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const roadmap = await prismadb.roadmap.update({
+    const roadmap = await prismadb.roadmap.findFirst({
       where: {
         id: roadmapId,
         mentorId: userId,
-      },
-      data: {
-        status: "Active",
       },
       include: {
         milestones: true,
@@ -47,6 +44,23 @@ export async function POST(
         status: 400,
       });
     }
+
+    const updatedRoadmap = await prismadb.roadmap.update({
+      where: {
+        id: roadmapId,
+        mentorId: userId,
+      },
+      data: {
+        status: "Active",
+      },
+    });
+
+    await prismadb.notification.create({
+      data: {
+        userId: updatedRoadmap.menteeId,
+        message: `Your mentor has started the ${updatedRoadmap.title} roadmap!`,
+      },
+    });
 
     // Get milestones for roadmap, then set first milestone to active
     const milestones = await prismadb.milestone.findMany({

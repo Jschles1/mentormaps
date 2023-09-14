@@ -3,6 +3,7 @@ import deleteRoadmap from "@/lib/server/api/deleteRoadmap";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import updateRoadmap from "@/lib/server/api/updateRoadmap";
+import prismadb from "@/lib/prisma-db";
 
 export async function GET(
   req: NextRequest,
@@ -29,7 +30,6 @@ export async function PATCH(
   { params }: { params: { roadmapId: string } }
 ) {
   try {
-    console.log("REQUEST");
     const { userId } = auth();
 
     // Check if user is logged in
@@ -50,6 +50,15 @@ export async function PATCH(
       title,
       goal
     );
+
+    if (updateResult.menteeId) {
+      await prismadb.notification.create({
+        data: {
+          userId: updateResult.menteeId,
+          message: `Your mentor has updated the ${updateResult.title} roadmap!`,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "Success" });
   } catch (error) {
@@ -77,6 +86,14 @@ export async function DELETE(
     }
 
     const deleteResult = await deleteRoadmap(userId, roadmapId);
+    if (deleteResult.menteeId) {
+      await prismadb.notification.create({
+        data: {
+          userId: deleteResult.menteeId,
+          message: `Your mentor has deleted the ${deleteResult.title} roadmap!`,
+        },
+      });
+    }
 
     return NextResponse.json({ message: "Success" });
   } catch (error) {

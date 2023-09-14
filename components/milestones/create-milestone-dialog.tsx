@@ -127,10 +127,12 @@ function MilestoneResource({
 
 interface CreateMilestoneDialogProps {
   trigger?: React.ReactNode;
+  menteeId?: string;
 }
 
 export default function CreateMilestoneDialog({
   trigger,
+  menteeId,
 }: CreateMilestoneDialogProps) {
   const queryClient = useQueryClient();
   const { userId } = useAuth();
@@ -159,6 +161,7 @@ export default function CreateMilestoneDialog({
         description: variables.description,
         subtasks: variables.subtasks,
         resources: variables.resources,
+        menteeId: menteeId || "",
       }),
     onSuccess: async (_) => {
       console.log("API call successful.");
