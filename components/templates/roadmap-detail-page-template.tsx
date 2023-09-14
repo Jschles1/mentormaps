@@ -192,7 +192,7 @@ export default function RoadmapDetailPageTemplate({
         </div>
       </Card>
 
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-4 relative">
         {data?.roadmap.milestones.map((milestone: Milestone) => (
           <MilestoneCard
             key={milestone.id}
@@ -200,6 +200,10 @@ export default function RoadmapDetailPageTemplate({
             isMentor={isMentor}
           />
         ))}
+        <div
+          className="border-light-blue-gray border-l-8 h-full text-transparent absolute left-5"
+          aria-hidden
+        ></div>
       </div>
     </div>
   );
