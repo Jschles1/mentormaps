@@ -17,7 +17,7 @@ export default function RoadmapsPageTemplate({
   menteeRoadmaps,
   userId,
 }: RoadmapsPageTemplateProps) {
-  const roadmapsQueryKey = ["roadmaps"];
+  const roadmapsQueryKey = ["roadmaps", userId];
   const { data } = useQuery({
     queryKey: roadmapsQueryKey,
     queryFn: fetchRoadmaps,
