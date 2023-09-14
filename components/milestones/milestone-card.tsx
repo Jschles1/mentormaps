@@ -74,7 +74,7 @@ export default function MilestoneCard({
   return (
     <Card
       className={cn(
-        "px-4 py-6 border-0",
+        "px-4 py-6 border-0 relative z-10",
         isMilestoneLocked && "bg-light-blue-gray"
       )}
     >
@@ -106,6 +106,11 @@ export default function MilestoneCard({
 
             <div>
               <p className="text-xs text-gray mb-2">Subtasks</p>
+              {!subtasks.length && (
+                <p className="text-sm text-black-darkest font-bold -mt-2">
+                  N/A
+                </p>
+              )}
               <div className="flex flex-col gap-y-2">
                 {subtasks.map((subtask) => (
                   <div
