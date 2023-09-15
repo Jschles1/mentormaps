@@ -21,7 +21,11 @@ export default async function getRoadmapDetails(
         ],
       },
       include: {
-        milestones: true,
+        milestones: {
+          orderBy: {
+            order: "asc",
+          },
+        },
         RoadmapInvite: true,
       },
     });

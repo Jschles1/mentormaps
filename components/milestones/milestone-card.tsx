@@ -18,6 +18,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import DeleteMilestoneDialog from "./delete-milestone-dialog";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -60,7 +61,7 @@ export default function MilestoneCard({
   milestone,
   isMentor,
 }: MilestoneCardProps) {
-  const { title, description, status, subtasks, resources } = milestone;
+  const { title, description, status, subtasks, resources, id } = milestone;
   let milestoneStatus: MilestoneIconStatuses = status;
   const isMilestoneLocked = status === "Pending" && !isMentor;
   const isPendingReview = status === "PendingCompletionReview" && isMentor;
@@ -168,7 +169,7 @@ export default function MilestoneCard({
                       </Button>
                     )}
                     <Button>Edit Milestone</Button>
-                    <Button variant="destructive">Delete Milestone</Button>
+                    <DeleteMilestoneDialog milestoneId={id} />
                   </>
                 ) : (
                   <>
