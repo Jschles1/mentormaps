@@ -66,9 +66,9 @@ export default function NotificationDialog({
           <DialogTitle className="mb-6">Notifications</DialogTitle>
           <div className="flex flex-col items-start gap-y-4">
             {!!notificationLength ? (
-              notifications.map((n: Notification) => (
+              notifications.map((n: Notification, index) => (
                 <div
-                  key={n.message}
+                  key={`${n.message}-${index}`}
                   className="bg-lighter-blue-gray p-3 rounded w-full flex flex-col gap-y-2"
                 >
                   <p className="text-black-darkest">{n.message}</p>
