@@ -6,6 +6,7 @@ import {
   XCircle,
   LinkIcon,
   CircleDot,
+  Edit,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
@@ -19,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import DeleteMilestoneDialog from "./delete-milestone-dialog";
+import EditMilestoneDialog from "./edit-milestone-dialog";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -168,7 +170,10 @@ export default function MilestoneCard({
                         Review Mentee Submission
                       </Button>
                     )}
-                    <Button>Edit Milestone</Button>
+                    <EditMilestoneDialog
+                      milestone={milestone}
+                      trigger={<Button>Edit Milestone</Button>}
+                    />
                     <DeleteMilestoneDialog milestoneId={id} />
                   </>
                 ) : (

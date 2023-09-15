@@ -3,6 +3,59 @@ import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { roadmapId: string; milestoneId: string } }
+) {
+  try {
+    const { userId } = auth();
+
+    // Check if user is logged in
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const { title, description, resources, subtasks, menteeId } =
+      await req.json();
+
+    if (!title || !description) {
+      return new NextResponse("Missing title or description", { status: 400 });
+    }
+
+    // Store name and URL as one string
+    const resourceStrings = resources?.map(
+      (resource: { name: string; href: string }) =>
+        `${resource.name}___***___${resource.href}`
+    );
+
+    const updatedMilestone = await prismadb.milestone.update({
+      where: {
+        id: parseInt(params.milestoneId),
+        roadmapId: parseInt(params.roadmapId),
+      },
+      data: {
+        title,
+        description,
+        resources: resourceStrings,
+        subtasks,
+      },
+    });
+
+    if (menteeId) {
+      await prismadb.notification.create({
+        data: {
+          userId: menteeId,
+          message: `Your mentor updated the ${title} milestone on your roadmap!`,
+        },
+      });
+    }
+
+    return NextResponse.json({ message: "Success" });
+  } catch (error) {
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
 export async function DELETE(
   req: NextRequest,
   { params }: { params: { roadmapId: string; milestoneId: string } }
@@ -76,7 +129,6 @@ export async function DELETE(
       });
     } else {
       for (let i = 0; i < currentMilestones.length; i++) {
-        console.log({ i });
         // Lower order of each milestone after the deleted milestone by 1
         if (currentMilestones[i].order > milestoneToDelete.order) {
           const newMilestoneData: Prisma.MilestoneUpdateInput = {
