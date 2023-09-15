@@ -6,7 +6,6 @@ import {
   XCircle,
   LinkIcon,
   CircleDot,
-  Edit,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
@@ -33,7 +32,6 @@ type MilestoneIconStatuses =
   | "Locked"
   | "Completed"
   | "Rejected"
-  | "PendingCompletionReview"
   | "Pending Completion Review"
   | "Active";
 
@@ -43,7 +41,6 @@ const MilestoneIconsByStatus: {
   Completed: React.FC;
   Active: React.FC;
   Rejected: React.FC;
-  PendingCompletionReview: React.FC;
   "Pending Completion Review": React.FC;
 } = {
   Pending: () => <CircleEllipsis size={16} color="orange" />,
@@ -51,7 +48,6 @@ const MilestoneIconsByStatus: {
   Completed: () => <CheckCircle2 size={16} color="green" />,
   Active: () => <CircleDot size={16} color="green" />,
   Rejected: () => <XCircle size={16} color="red" />,
-  PendingCompletionReview: () => <CircleEllipsis size={16} color="orange" />,
   "Pending Completion Review": () => (
     <CircleEllipsis size={16} color="orange" />
   ),
@@ -70,7 +66,7 @@ export default function MilestoneCard({
   isMentor,
 }: MilestoneCardProps) {
   const { title, description, status, subtasks, resources, id } = milestone;
-  let milestoneStatus: MilestoneIconStatuses = status;
+  let milestoneStatus: MilestoneIconStatuses = status as MilestoneIconStatuses;
   const isMilestoneLocked = status === "Pending" && !isMentor;
   const isPendingReview = status === "PendingCompletionReview" && isMentor;
   const isCompletionSubmitted =
