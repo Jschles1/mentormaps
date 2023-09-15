@@ -21,6 +21,7 @@ import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import DeleteMilestoneDialog from "./delete-milestone-dialog";
 import EditMilestoneDialog from "./edit-milestone-dialog";
+import SubmitCompletionDialog from "./submit-completion-dialog";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -33,6 +34,7 @@ type MilestoneIconStatuses =
   | "Completed"
   | "Rejected"
   | "PendingCompletionReview"
+  | "Pending Completion Review"
   | "Active";
 
 const MilestoneIconsByStatus: {
@@ -42,6 +44,7 @@ const MilestoneIconsByStatus: {
   Active: React.FC;
   Rejected: React.FC;
   PendingCompletionReview: React.FC;
+  "Pending Completion Review": React.FC;
 } = {
   Pending: () => <CircleEllipsis size={16} color="orange" />,
   Locked: () => <Lock size={16} color="gray" />,
@@ -49,6 +52,9 @@ const MilestoneIconsByStatus: {
   Active: () => <CircleDot size={16} color="green" />,
   Rejected: () => <XCircle size={16} color="red" />,
   PendingCompletionReview: () => <CircleEllipsis size={16} color="orange" />,
+  "Pending Completion Review": () => (
+    <CircleEllipsis size={16} color="orange" />
+  ),
 };
 
 function getResourceData(resource: string) {
@@ -69,6 +75,9 @@ export default function MilestoneCard({
   const isPendingReview = status === "PendingCompletionReview" && isMentor;
   const isCompletionSubmitted =
     status === "PendingCompletionReview" && !isMentor;
+  if (status === "PendingCompletionReview") {
+    milestoneStatus = "Pending Completion Review";
+  }
   if (isMilestoneLocked) {
     milestoneStatus = "Locked";
   }
@@ -104,7 +113,9 @@ export default function MilestoneCard({
 
             <div>
               <p className="text-xs text-gray">Status</p>
-              <p className="text-sm text-black-darkest font-bold">{status}</p>
+              <p className="text-sm text-black-darkest font-bold">
+                {milestoneStatus}
+              </p>
             </div>
 
             <div>
@@ -178,7 +189,19 @@ export default function MilestoneCard({
                   </>
                 ) : (
                   <>
-                    <Button variant="secondary">Submit Completion</Button>
+                    {status === "PendingCompletionReview" && (
+                      <Button variant="secondary" disabled>
+                        Pending Mentor Review...
+                      </Button>
+                    )}
+                    {(status === "Active" || status === "Rejected") && (
+                      <SubmitCompletionDialog
+                        milestoneId={id}
+                        trigger={
+                          <Button variant="secondary">Mark as Completed</Button>
+                        }
+                      />
+                    )}
                   </>
                 )}
               </div>

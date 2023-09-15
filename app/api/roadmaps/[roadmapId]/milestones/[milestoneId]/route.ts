@@ -15,8 +15,53 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { title, description, resources, subtasks, menteeId } =
-      await req.json();
+    const {
+      title,
+      description,
+      resources,
+      subtasks,
+      menteeId,
+      menteeSolutionComment,
+      menteeSolutionUrl,
+    } = await req.json();
+
+    const isMenteeCompletionSubmission =
+      typeof menteeSolutionComment === "string" &&
+      typeof menteeSolutionUrl === "string";
+
+    if (isMenteeCompletionSubmission) {
+      const associatedRoadmap = await prismadb.roadmap.findFirst({
+        where: {
+          id: parseInt(params.roadmapId),
+          menteeId: userId,
+        },
+      });
+
+      if (!associatedRoadmap) {
+        return new NextResponse("Unauthorized", { status: 401 });
+      }
+
+      const markedCompleteMilestone = await prismadb.milestone.update({
+        where: {
+          id: parseInt(params.milestoneId),
+          roadmapId: associatedRoadmap.id,
+        },
+        data: {
+          status: "PendingCompletionReview",
+          menteeSolutionComment,
+          menteeSolutionUrl,
+        },
+      });
+
+      const mentorNotification = await prismadb.notification.create({
+        data: {
+          userId: associatedRoadmap.mentorId,
+          message: `Your mentee has submitted a solution for the ${markedCompleteMilestone.title} milestone!`,
+        },
+      });
+
+      return NextResponse.json({ message: "Success" });
+    }
 
     if (!title || !description) {
       return new NextResponse("Missing title or description", { status: 400 });
