@@ -171,8 +171,8 @@ export default function CreateMilestoneDialog({
       });
       toast({
         title: "Successfully added milestone!",
-        // description: "You can now start adding milestones to your roadmap.",
       });
+      form.reset();
     },
     onError: (error: any) => {
       const errorMessage = error?.response?.data;
