@@ -6,15 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 
 interface RoadmapCardProps {
-  roadmap: Roadmap;
+  roadmap: RoadmapWithMilestonesAndInvites;
 }
 
 export default function RoadmapCard({ roadmap }: RoadmapCardProps) {
-  const { title, milestonesCompleted, milestonesTotal, id } = roadmap;
+  const { title, milestones, id } = roadmap;
 
-  const milestonesCompletedMessage = `${milestonesCompleted} of ${milestonesTotal} milestones completed`;
+  const completedMilestones = milestones?.filter(
+    (milestone) => milestone.status === "Completed"
+  ).length;
+
+  const milestonesCompletedMessage = `${completedMilestones} of ${milestones.length} milestones completed`;
 
   return (
     <Link href={`/roadmaps/${id}`}>

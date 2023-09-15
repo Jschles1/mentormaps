@@ -6,10 +6,24 @@ export default async function getRoadmaps(userId: string) {
       where: {
         menteeId: userId,
       },
+      include: {
+        milestones: {
+          orderBy: {
+            order: "asc",
+          },
+        },
+      },
     });
     const mentorRoadmaps = await prismadb.roadmap.findMany({
       where: {
         mentorId: userId,
+      },
+      include: {
+        milestones: {
+          orderBy: {
+            order: "asc",
+          },
+        },
       },
     });
 
