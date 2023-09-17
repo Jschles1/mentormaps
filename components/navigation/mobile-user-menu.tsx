@@ -66,12 +66,12 @@ export default function MobileUserMenu({
           <Button
             variant="ghost"
             size="icon"
-            className="hover:bg-lighter-blue-gray focus:bg-lighter-blue-gray focus-within:bg-lighter-blue-gray focus-visible:bg-lighter-blue-gray active:bg-lighter-blue-gray"
+            className="hover:bg-lighter-blue-gray focus:bg-lighter-blue-gray focus-within:bg-lighter-blue-gray focus-visible:bg-lighter-blue-gray active:bg-lighter-blue-gray lg:hidden"
           >
             <Image src={IconVerticalEllipsis} alt="Menu" />
           </Button>
           {!!notificationLength && (
-            <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full">
+            <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full lg:hidden">
               {notificationLength}
             </div>
           )}
@@ -79,6 +79,7 @@ export default function MobileUserMenu({
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">
         <div className="flex flex-col gap-4">
+          {/* TODO: Move out of user dialog? */}
           <NotificationDialog notifications={notificationsData} />
 
           <RoadmapInviteDialog

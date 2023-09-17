@@ -6,16 +6,22 @@ import MobileUserMenu from "./mobile-user-menu";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 import prismadb from "@/lib/prisma-db";
 import getNotifications from "@/lib/server/api/getNotifications";
+import { RoadmapInvite, Notification } from "@prisma/client";
+import { RoadmapData } from "@/lib/interfaces";
 
-export default async function Navigation() {
-  const { userId } = auth();
+interface NavigationProps {
+  roadmapInvites: RoadmapInvite[];
+  roadmapData: RoadmapData[];
+  userId: string;
+  notifications: Notification[];
+}
 
-  const { roadmapInvites, roadmapData } = await getRoadmapInvites(
-    userId as string
-  );
-
-  const notifications = await getNotifications(userId as string);
-
+export default async function Navigation({
+  roadmapInvites,
+  roadmapData,
+  userId,
+  notifications,
+}: NavigationProps) {
   return (
     <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
       <div className="flex items-center gap-x-4">
@@ -23,7 +29,7 @@ export default async function Navigation() {
         <h1 className="text-[1.125rem] font-bold">Roadmap</h1>
       </div>
 
-      <div className="flex items-center gap-x-4 md:hidden">
+      <div className="flex items-center gap-x-4">
         <AddButton />
         <UserButton
           afterSignOutUrl="/sign-in"
