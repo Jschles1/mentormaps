@@ -23,7 +23,100 @@ export async function PATCH(
       menteeId,
       menteeSolutionComment,
       menteeSolutionUrl,
+      decision,
+      mentorFeedbackComment,
     } = await req.json();
+
+    const isMentorCompletionReview =
+      typeof decision === "string" && typeof mentorFeedbackComment === "string";
+
+    if (isMentorCompletionReview) {
+      const associatedRoadmap = await prismadb.roadmap.findFirst({
+        where: {
+          id: parseInt(params.roadmapId),
+          mentorId: userId,
+        },
+      });
+
+      if (!associatedRoadmap) {
+        return new NextResponse("Unauthorized", { status: 401 });
+      }
+
+      const isApproved = decision === "approve";
+      const newStatus = isApproved ? "Completed" : "Rejected";
+      let notificationMessage = "";
+
+      const reviewedMilestone = await prismadb.milestone.update({
+        where: {
+          id: parseInt(params.milestoneId),
+          roadmapId: associatedRoadmap.id,
+        },
+        data: {
+          status: newStatus,
+          mentorFeedbackComment: mentorFeedbackComment,
+        },
+      });
+
+      if (isApproved) {
+        // Get next milestone
+        const nextMilestone = await prismadb.milestone.findFirst({
+          where: {
+            roadmapId: associatedRoadmap.id,
+            order: reviewedMilestone.order + 1,
+          },
+        });
+
+        if (nextMilestone) {
+          // If next milestone exists, set it to active
+          await prismadb.milestone.update({
+            where: {
+              id: nextMilestone.id,
+            },
+            data: {
+              status: "Active",
+            },
+          });
+
+          notificationMessage = `Your mentor has approved your solution for the ${reviewedMilestone.title} milestone!`;
+        } else {
+          // If next milestone does not exist, set roadmap to completed
+          await prismadb.roadmap.update({
+            where: {
+              id: associatedRoadmap.id,
+            },
+            data: {
+              status: "Completed",
+            },
+          });
+
+          notificationMessage = `Your mentor has approved your solution for the ${reviewedMilestone.title} milestone! Since it was the last milestone, your roadmap has been set to completed.`;
+        }
+      } else {
+        // If milestone is rejected, set milestone to rejected and send mentee notification
+        await prismadb.milestone.update({
+          where: {
+            id: reviewedMilestone.id,
+          },
+          data: {
+            status: "Rejected",
+          },
+        });
+
+        notificationMessage = `Your mentor has rejected your solution for the ${reviewedMilestone.title} milestone. Please review their feedback and resubmit your solution.`;
+      }
+
+      await prismadb.notification.create({
+        data: {
+          userId: associatedRoadmap.menteeId,
+          message: notificationMessage,
+        },
+      });
+
+      return NextResponse.json({
+        message: notificationMessage,
+        approved: isApproved,
+      });
+    }
 
     const isMenteeCompletionSubmission =
       typeof menteeSolutionComment === "string" &&

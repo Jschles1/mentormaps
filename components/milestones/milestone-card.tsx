@@ -21,6 +21,8 @@ import { Separator } from "../ui/separator";
 import DeleteMilestoneDialog from "./delete-milestone-dialog";
 import EditMilestoneDialog from "./edit-milestone-dialog";
 import SubmitCompletionDialog from "./submit-completion-dialog";
+import ReviewSubmissionDialog from "./review-submission-dialog";
+import MilestoneMenteeSolution from "./milestone-mentee-solution";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -176,33 +178,11 @@ export default function MilestoneCard({
               </div>
 
               {isCompletionSubmitted && (
-                <div className="mt-4 flex flex-col gap-y-4">
-                  <div>
-                    <p className="text-xs text-gray">Your Solution</p>
-                    <p className="text-sm text-black-darkest font-bold">
-                      {menteeSolutionComment || "N/A"}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray mb-2">Solution URL</p>
-                    {menteeSolutionUrl ? (
-                      <div className="max-w-full overflow-hidden flex items-center gap-x-2">
-                        <div className="flex flex-1 items-center gap-x-2 px-4 py-4 relative bg-lighter-blue-gray rounded-md ">
-                          <LinkIcon className="text-dark-lavender" size={16} />
-                          <Link
-                            href={menteeSolutionUrl}
-                            target="_blank"
-                            className="text-xs underline flex-1 text-black-darkest text-bold overflow-x-hidden break-words max-w-[calc(100vw-11rem)]"
-                          >
-                            {menteeSolutionUrl}
-                          </Link>
-                        </div>
-                      </div>
-                    ) : (
-                      "N/A"
-                    )}
-                  </div>
-                </div>
+                <MilestoneMenteeSolution
+                  isMentor={false}
+                  menteeSolutionComment={menteeSolutionComment}
+                  menteeSolutionUrl={menteeSolutionUrl}
+                />
               )}
 
               <Separator className="my-4" />
@@ -212,9 +192,16 @@ export default function MilestoneCard({
                 {isMentor ? (
                   <>
                     {isPendingReview && (
-                      <Button variant="secondary">
-                        Review Mentee Submission
-                      </Button>
+                      <ReviewSubmissionDialog
+                        milestoneId={id}
+                        menteeSolutionComment={menteeSolutionComment}
+                        menteeSolutionUrl={menteeSolutionUrl}
+                        trigger={
+                          <Button variant="secondary">
+                            Review Mentee Submission
+                          </Button>
+                        }
+                      />
                     )}
                     <EditMilestoneDialog
                       milestone={milestone}
