@@ -7,6 +7,7 @@ import getNotifications from "@/lib/server/api/getNotifications";
 import MobileUserMenu from "@/components/navigation/mobile-user-menu";
 import AddButton from "@/components/navigation/add-button";
 import Image from "next/image";
+import NotificationDialog from "@/components/notifications/notification-dialog";
 
 export default async function DashboardLayout({
   children,
@@ -38,6 +39,7 @@ export default async function DashboardLayout({
             }}
             userProfileMode="modal"
           />
+          <NotificationDialog notifications={notifications} />
           <MobileUserMenu
             roadmapData={roadmapData}
             roadmapInvites={roadmapInvites}

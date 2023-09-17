@@ -34,20 +34,9 @@ export default function DesktopUserMenu({
     refetchOnMount: false,
   });
 
-  const { data: notificationsData } = useQuery({
-    queryKey: notificationsQueryKey,
-    queryFn: fetchNotifications,
-    initialData: notifications,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-
   return (
     <div className="bg-white py-4 pr-4 pl-0 hidden lg:block h-[calc(100vh-4rem)] w-[24rem] border-lighter-blue-gray border border-l-0 border-b-0">
       <div className="flex flex-col gap-4">
-        {/* TODO: Move out of user dialog? */}
-        <NotificationDialog notifications={notificationsData} />
-
         <RoadmapInviteDialog
           roadmapInvites={data?.roadmapInvites}
           roadmapData={data?.roadmapData}

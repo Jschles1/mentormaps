@@ -14,7 +14,7 @@ const MenuButton = React.forwardRef(
         ref={ref}
         disabled={disabled}
         variant="ghost"
-        className="text-gray text-[0.938rem] disabled:bg-white disabled:text-gray bg-white rounded-tl-none rounded-bl-none rounded-tr-[100px] rounded-br-[100px] w-full justify-start hover:text-white focus:text-white focus-within:text-white focus:bg-dark-lavender active:text-white active:bg-dark-lavender"
+        className="text-gray text-[0.938rem] disabled:bg-white disabled:text-gray hover:text-dark-lavender hover:bg-[rgba(99,95,199,0.10)] focus:text-white focus:bg-dark-lavender focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-dark-lavender active:bg-[rgba(99,95,199,0.10)] active:text-dark-lavender rounded-tl-none rounded-bl-none w-full justify-start"
         {...props}
       >
         {children}

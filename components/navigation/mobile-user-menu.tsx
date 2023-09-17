@@ -40,17 +40,6 @@ export default function MobileUserMenu({
     refetchOnMount: false,
   });
 
-  const { data: notificationsData } = useQuery({
-    queryKey: notificationsQueryKey,
-    queryFn: fetchNotifications,
-    initialData: notifications,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
-
-  // const inviteLength = data?.roadmapInvites.length;
-  const notificationLength = notificationsData?.length;
-
   function handleClose() {
     setOpen(false);
   }
@@ -70,18 +59,10 @@ export default function MobileUserMenu({
           >
             <Image src={IconVerticalEllipsis} alt="Menu" />
           </Button>
-          {!!notificationLength && (
-            <div className="absolute text-xs bg-dark-lavender text-white -top-1 -right-1 px-[0.375rem] rounded-full lg:hidden">
-              {notificationLength}
-            </div>
-          )}
         </div>
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">
         <div className="flex flex-col gap-4">
-          {/* TODO: Move out of user dialog? */}
-          <NotificationDialog notifications={notificationsData} />
-
           <RoadmapInviteDialog
             roadmapInvites={data?.roadmapInvites}
             roadmapData={data?.roadmapData}
