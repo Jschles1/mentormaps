@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import axios from "axios";
-import { useParams } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -10,14 +9,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import MenuButton from "../navigation/menu-button";
-import { Notification, RoadmapInvite } from "@prisma/client";
+import { Notification } from "@prisma/client";
 import { Bell } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { RoadmapData } from "@/lib/interfaces";
-import Image from "next/image";
 import { fetchNotifications } from "@/lib/fetchers";
 
 interface NotificationDialogProps {
@@ -27,7 +23,6 @@ interface NotificationDialogProps {
 export default function NotificationDialog({
   notifications,
 }: NotificationDialogProps) {
-  const params = useParams();
   const { userId } = useAuth();
   const queryClient = useQueryClient();
   const notificationsQueryKey = ["notifications", userId];
@@ -41,11 +36,29 @@ export default function NotificationDialog({
   });
 
   const dismissNotificationMutation = useMutation({
+    onMutate: async (variables: { id: number }) => {
+      await queryClient.cancelQueries({ queryKey: notificationsQueryKey });
+      const allNotifications = await (queryClient.getQueryData(
+        notificationsQueryKey
+      ) as Notification[]);
+      queryClient.setQueryData(
+        notificationsQueryKey,
+        allNotifications.filter((n) => n.id !== variables.id)
+      );
+      console.log("Mutation onMutate!", allNotifications);
+      return { allNotifications };
+    },
     mutationFn: (variables: { id: number }) =>
       axios.delete(`/api/notifications/${variables.id}`),
     onSuccess: async (data) => {
       console.log("Mutation success!", data);
-      await queryClient.refetchQueries({ queryKey: notificationsQueryKey });
+      await queryClient.invalidateQueries({ queryKey: notificationsQueryKey });
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(
+        notificationsQueryKey,
+        context?.allNotifications
+      );
     },
   });
   const notificationLength = notificationsData?.length;
