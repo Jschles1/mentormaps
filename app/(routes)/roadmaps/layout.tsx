@@ -47,8 +47,15 @@ export default async function DashboardLayout({
         </div>
       </div>
       <div className="flex items-start">
-        <DesktopUserMenu />
-        <main className="h-full w-full px-4 py-6">{children}</main>
+        <DesktopUserMenu
+          roadmapData={roadmapData}
+          roadmapInvites={roadmapInvites}
+          userId={userId as string}
+          notifications={notifications}
+        />
+        <main className="h-full w-full px-4 py-6 mx-auto max-w-7xl">
+          {children}
+        </main>
       </div>
     </div>
   );
