@@ -26,6 +26,7 @@ import { useAuth } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import FormSubmitButton from "../form/form-submit-button";
+import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
   menteeEmail: z.string().email(),
@@ -42,6 +43,7 @@ export default function InviteMenteeDialog({
   roadmapId,
 }: InviteMenteeDialogProps) {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { userId } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -71,6 +73,11 @@ export default function InviteMenteeDialog({
         form.setError("menteeEmail", {
           type: "manual",
           message: "Mentee email doesn't exist.",
+        });
+      } else {
+        toast({
+          title: "Something went wrong!",
+          description: `Error: ${errorMessage}`,
         });
       }
     },

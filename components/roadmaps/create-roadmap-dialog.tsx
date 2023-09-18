@@ -89,6 +89,11 @@ export default function CreateRoadMapDialog({
           type: "manual",
           message: "Mentee email doesn't exist.",
         });
+      } else {
+        toast({
+          title: "Something went wrong!",
+          description: `Error: ${errorMessage}`,
+        });
       }
     },
   });

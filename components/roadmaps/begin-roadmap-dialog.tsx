@@ -41,7 +41,13 @@ export default function BeginRoadmapDialog({
         title: "Roadmap is now active!",
       });
     },
-    onError: (error: any) => {},
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
+    },
   });
 
   function handleBeginRoadmap() {

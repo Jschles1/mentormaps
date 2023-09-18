@@ -44,7 +44,13 @@ export default function DeleteMilestoneDialog({
         title: "Successfully deleted milestone!",
       });
     },
-    onError: (error: any) => {},
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
+    },
   });
 
   function handleDelete() {

@@ -17,6 +17,7 @@ import { Button } from "../ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RoadmapData } from "@/lib/interfaces";
 import FormSubmitButton from "../form/form-submit-button";
+import { useToast } from "../ui/use-toast";
 
 interface RoadmapInviteDialogProps {
   roadmapInvites: RoadmapInvite[];
@@ -30,6 +31,7 @@ export default function RoadmapInviteDialog({
   userId,
 }: RoadmapInviteDialogProps) {
   const params = useParams();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
 
@@ -47,6 +49,13 @@ export default function RoadmapInviteDialog({
           queryKey: ["roadmap", params.roadmapId],
         });
       }
+    },
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
     },
   });
   const inviteLength = roadmapInvites?.length;

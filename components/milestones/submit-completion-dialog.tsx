@@ -85,6 +85,10 @@ export default function SubmitCompletionDialog({
     },
     onError: (error: any) => {
       const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
     },
   });
 

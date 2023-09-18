@@ -33,7 +33,13 @@ export default function DeleteRoadmapDialog() {
         title: "Successfully deleted Roadmap!",
       });
     },
-    onError: (error: any) => {},
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
+    },
   });
 
   function handleDelete() {

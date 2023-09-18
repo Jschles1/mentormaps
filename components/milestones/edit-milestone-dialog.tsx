@@ -180,7 +180,6 @@ export default function EditMilestoneDialog({
         }
       ),
     onSuccess: async (_) => {
-      console.log("Update API call successful.");
       setIsOpen(false);
       await queryClient.refetchQueries({
         queryKey: ["roadmap", params.roadmapId, userId],
@@ -192,6 +191,10 @@ export default function EditMilestoneDialog({
     },
     onError: (error: any) => {
       const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
     },
   });
 

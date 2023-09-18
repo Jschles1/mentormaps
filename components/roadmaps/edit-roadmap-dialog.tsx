@@ -88,7 +88,13 @@ export default function EditRoadmapDialog({
       });
       closePopover();
     },
-    onError: (error: any) => {},
+    onError: (error: any) => {
+      const errorMessage = error?.response?.data;
+      toast({
+        title: "Something went wrong!",
+        description: `Error: ${errorMessage}`,
+      });
+    },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
