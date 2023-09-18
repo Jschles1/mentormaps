@@ -208,7 +208,7 @@ export default function RoadmapDetailPageTemplate({
           />
         ))}
         <div
-          className="border-light-blue-gray border-l-8 h-full text-transparent absolute left-5"
+          className="border-light-blue-gray border-l-8 h-full text-transparent absolute left-5 animate-pulse"
           aria-hidden
         ></div>
       </div>

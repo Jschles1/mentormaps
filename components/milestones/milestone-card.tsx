@@ -177,12 +177,15 @@ export default function MilestoneCard({
                   ))}
               </div>
 
-              {isCompletionSubmitted && (
-                <MilestoneMenteeSolution
-                  isMentor={false}
-                  menteeSolutionComment={menteeSolutionComment}
-                  menteeSolutionUrl={menteeSolutionUrl}
-                />
+              {(isCompletionSubmitted || milestoneStatus === "Completed") && (
+                <>
+                  <Separator className="my-4" />
+                  <MilestoneMenteeSolution
+                    isMentor={false}
+                    menteeSolutionComment={menteeSolutionComment}
+                    menteeSolutionUrl={menteeSolutionUrl}
+                  />
+                </>
               )}
 
               <Separator className="my-4" />
@@ -190,7 +193,7 @@ export default function MilestoneCard({
               <div className="flex flex-col gap-y-2">
                 {/* Mentor Options or Mentee Options */}
                 {isMentor ? (
-                  <>
+                  <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-4">
                     {isPendingReview && (
                       <ReviewSubmissionDialog
                         milestoneId={id}
@@ -208,9 +211,9 @@ export default function MilestoneCard({
                       trigger={<Button>Edit Milestone</Button>}
                     />
                     <DeleteMilestoneDialog milestoneId={id} />
-                  </>
+                  </div>
                 ) : (
-                  <>
+                  <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-4">
                     {status === "PendingCompletionReview" && (
                       <Button variant="secondary" disabled>
                         Pending Mentor Review...
@@ -224,7 +227,7 @@ export default function MilestoneCard({
                         }
                       />
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             </div>

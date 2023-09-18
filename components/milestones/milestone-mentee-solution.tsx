@@ -35,9 +35,7 @@ export default function MilestoneMenteeSolution({
             </div>
           </div>
         ) : (
-          <p className="text-sm text-black-darkest font-bold">
-            &quot;N/A&quot;
-          </p>
+          <p className="text-sm text-black-darkest font-bold">N/A</p>
         )}
       </div>
     </div>
