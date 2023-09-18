@@ -24,7 +24,7 @@ export default function RoadmapList({ type, roadmaps }: RoadmapListProps) {
     (type === "mentee" ? "Mentee Roadmaps" : "Mentor Roadmaps") +
     ` (${roadmapsLength})`;
   return (
-    <div className="mb-6">
+    <div className="mb-6 lg:basis-1/2">
       <div className="flex items-center gap-x-2 mb-6">
         <p className="text-xs uppercase text-gray tracking-[2.4px] font-bold">
           {title}

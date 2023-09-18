@@ -1,6 +1,6 @@
 export default function NoMentorRoadmaps() {
   return (
-    <div className="mb-6">
+    <div className="mb-6 lg:basis-1/2">
       <p className="text-xs uppercase text-gray tracking-[2.4px] font-bold mb-6">
         Mentor Roadmaps (0)
       </p>

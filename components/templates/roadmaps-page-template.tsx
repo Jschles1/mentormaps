@@ -34,7 +34,7 @@ export default function RoadmapsPageTemplate({
   }
 
   return (
-    <div>
+    <div className="lg:flex lg:items-start lg:gap-x-4">
       <RoadmapList type="mentor" roadmaps={data?.mentorRoadmaps} />
       <RoadmapList type="mentee" roadmaps={data?.menteeRoadmaps} />
     </div>

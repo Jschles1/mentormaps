@@ -1,6 +1,6 @@
 export default function NoMenteeRoadmaps() {
   return (
-    <div>
+    <div className="lg:basis-1/2">
       <p className="text-xs uppercase text-gray tracking-[2.4px] font-bold mb-6">
         Mentee Roadmaps (0)
       </p>
