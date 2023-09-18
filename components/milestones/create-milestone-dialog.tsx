@@ -291,7 +291,9 @@ export default function CreateMilestoneDialog({
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>
+                      Title<span className="text-orange">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="e.g. Learn JavaScript Basics"
@@ -311,7 +313,9 @@ export default function CreateMilestoneDialog({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>
+                      Description<span className="text-orange">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="e.g. Learn JavaScript basics such as variables, functions, and objects."
@@ -366,8 +370,8 @@ export default function CreateMilestoneDialog({
                       </div>
                     </FormControl>
                     <FormDescription>
-                      Add any subtasks here that can help your mentee complete
-                      this milestone.
+                      Add any optional subtasks here that can help your mentee
+                      complete this milestone.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -447,8 +451,9 @@ export default function CreateMilestoneDialog({
               />
 
               <p className="text-[0.813rem] text-gray">
-                Add any external resources that can help your mentee complete
-                this milestone. A resource requires a display name and URL.
+                Add any optional external resources that can help your mentee
+                complete this milestone. A resource requires a display name and
+                URL.
               </p>
 
               <Button

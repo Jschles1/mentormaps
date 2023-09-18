@@ -139,7 +139,9 @@ export default function ReviewSubmissionDialog({
                 name="decision"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel>Approve or Reject?</FormLabel>
+                    <FormLabel>
+                      Approve or Reject?<span className="text-orange">*</span>
+                    </FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -173,7 +175,9 @@ export default function ReviewSubmissionDialog({
                 name="mentorFeedbackComment"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Comments</FormLabel>
+                    <FormLabel>
+                      Comments<span className="text-orange">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Leave comments here..."

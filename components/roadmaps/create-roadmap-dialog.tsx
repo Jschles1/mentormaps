@@ -130,7 +130,9 @@ export default function CreateRoadMapDialog({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Roadmap Title</FormLabel>
+                  <FormLabel>
+                    Roadmap Title<span className="text-orange">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g. Software Developer Roadmap"
@@ -148,7 +150,9 @@ export default function CreateRoadMapDialog({
               name="goal"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Roadmap Goal</FormLabel>
+                  <FormLabel>
+                    Roadmap Goal<span className="text-orange">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="e.g. Become a Software Developer"

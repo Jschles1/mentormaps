@@ -115,7 +115,9 @@ export default function InviteMenteeDialog({
               name="menteeEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Mentee Email</FormLabel>
+                  <FormLabel>
+                    Mentee Email<span className="text-orange">*</span>
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="john-doe@gmail.com" {...field} />
                   </FormControl>
