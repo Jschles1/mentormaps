@@ -450,7 +450,7 @@ export default function CreateMilestoneDialog({
                 )}
               />
 
-              <p className="text-[0.813rem] text-gray">
+              <p className="text-[0.813rem] lg:text-base text-gray">
                 Add any optional external resources that can help your mentee
                 complete this milestone. A resource requires a display name and
                 URL.
@@ -459,7 +459,7 @@ export default function CreateMilestoneDialog({
               <Button
                 type="button"
                 variant="secondary"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
+                className="w-full px-[1.125rem] py-4 text-[0.938rem] lg:text-base rounded-3xl"
                 onClick={handleAddResource}
               >
                 Add Resource
@@ -475,7 +475,7 @@ export default function CreateMilestoneDialog({
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
+                className="w-full px-[1.125rem] py-4 text-[0.938rem] lg:text-base rounded-3xl"
                 onClick={() => setIsOpen(false)}
               >
                 Cancel

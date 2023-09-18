@@ -203,7 +203,7 @@ export default function ReviewSubmissionDialog({
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
+                className="w-full px-[1.125rem] py-4 text-[0.938rem] lg:text-base rounded-3xl"
                 onClick={() => setIsOpen(false)}
               >
                 Cancel

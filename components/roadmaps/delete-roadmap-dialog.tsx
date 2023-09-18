@@ -68,7 +68,7 @@ export default function DeleteRoadmapDialog() {
           <DialogTitle className="text-orange text-lg">
             Delete This Roadmap?
           </DialogTitle>
-          <DialogDescription className="text-gray text-[0.813rem] leading-[1.7] py-6">
+          <DialogDescription className="text-gray text-[0.813rem] lg:text-base leading-[1.7] py-6">
             Are you sure you want to delete this roadmap? This action will
             remove all mentee progress and associated data. This cannot be
             reversed.

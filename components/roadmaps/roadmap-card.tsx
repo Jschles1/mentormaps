@@ -25,7 +25,7 @@ export default function RoadmapCard({ roadmap }: RoadmapCardProps) {
     <Link href={`/roadmaps/${id}`}>
       <Card className="px-4 py-6 border-0">
         <CardHeader className="p-0">
-          <CardTitle className="text-[0.938rem] text-black-darkest">
+          <CardTitle className="text-[0.938rem] lg:text-base text-black-darkest">
             {title}
           </CardTitle>
           <CardDescription className="text-xs text-gray">

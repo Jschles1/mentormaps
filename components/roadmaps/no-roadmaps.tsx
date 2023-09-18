@@ -19,7 +19,7 @@ export default function NoRoadmaps() {
         </p>
         <CreateRoadMapDialog
           trigger={
-            <Button className="inline-flex items-center justify-center h-12 px-[1.125rem] py-4 text-[0.938rem] bg-dark-lavender focus-within:bg-light-lavender focus:bg-light-lavender active:bg-light-lavender hover:bg-light-lavender text-white rounded-3xl">
+            <Button className="inline-flex items-center justify-center h-12 px-[1.125rem] py-4 text-[0.938rem] lg:text-base bg-dark-lavender focus-within:bg-light-lavender focus:bg-light-lavender active:bg-light-lavender hover:bg-light-lavender text-white rounded-3xl">
               + Add New Roadmap
             </Button>
           }

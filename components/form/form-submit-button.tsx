@@ -28,7 +28,7 @@ export default function FormSubmitButton({
       variant={variant}
       size="sm"
       className={cn(
-        "w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl",
+        "w-full px-[1.125rem] py-4 text-[0.938rem] lg:text-base rounded-3xl",
         className
       )}
       type={type}

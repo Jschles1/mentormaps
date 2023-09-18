@@ -163,7 +163,7 @@ export default function SubmitCompletionDialog({
                 )}
               />
 
-              <p className="text-[0.813rem] text-gray">
+              <p className="text-[0.813rem] lg:text-base text-gray">
                 If you would prefer to review your work for this milestone with
                 your mentor outside the context of this application, you can
                 leave both of these fields blank.
@@ -181,7 +181,7 @@ export default function SubmitCompletionDialog({
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
+                className="w-full px-[1.125rem] py-4 text-[0.938rem] lg:text-base rounded-3xl"
                 onClick={() => setIsOpen(false)}
               >
                 Cancel

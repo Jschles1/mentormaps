@@ -107,7 +107,7 @@ export default function MilestoneCard({
               <MilestoneIcon />
               <p
                 className={cn(
-                  "text-[0.938rem] text-black-darkest",
+                  "text-[0.938rem] lg:text-base text-black-darkest",
                   isMilestoneLocked && "text-gray"
                 )}
               >

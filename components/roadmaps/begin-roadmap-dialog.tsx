@@ -72,7 +72,7 @@ export default function BeginRoadmapDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-lg">Begin This Roadmap?</DialogTitle>
-          <DialogDescription className="text-gray text-[0.813rem] leading-[1.7] py-6">
+          <DialogDescription className="text-gray text-[0.813rem] lg:text-base leading-[1.7] py-6">
             Are you sure you want to begin this roadmap? This action will set
             the roadmap status and first milestone status to be
             &quot;Active&quot;. This cannot be reversed.
