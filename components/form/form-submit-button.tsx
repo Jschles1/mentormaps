@@ -32,7 +32,7 @@ export default function FormSubmitButton({
         className
       )}
       type={type}
-      disabled={isLoading}
+      disabled={isLoading || props.disabled}
       {...props}
     >
       <ButtonIcon />
