@@ -5,6 +5,7 @@ import { Roadmap } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import RoadmapList from "../roadmaps/roadmap-list";
 import NoRoadmaps from "../roadmaps/no-roadmaps";
+import RoadmapsPageSkeleton from "../skeletons/roadmaps-page-skeleton";
 
 interface RoadmapsPageTemplateProps {
   mentorRoadmaps: Roadmap[];
@@ -18,13 +19,17 @@ export default function RoadmapsPageTemplate({
   userId,
 }: RoadmapsPageTemplateProps) {
   const roadmapsQueryKey = ["roadmaps", userId];
-  const { data } = useQuery({
+  const { data, isFetching, isLoading, isInitialLoading } = useQuery({
     queryKey: roadmapsQueryKey,
     queryFn: fetchRoadmaps,
     initialData: { mentorRoadmaps, menteeRoadmaps },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
   });
+
+  if (isLoading || isInitialLoading || isFetching) {
+    return <RoadmapsPageSkeleton />;
+  }
 
   const noRoadmaps =
     !data?.menteeRoadmaps?.length && !data?.mentorRoadmaps?.length;
