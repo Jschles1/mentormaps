@@ -36,13 +36,16 @@ export default function MobileUserMenu({
     refetchOnMount: false,
   });
 
-  function handleClose() {
+  const handleClose = React.useCallback(() => {
     setOpen(false);
-  }
+  }, [setOpen]);
 
-  function handleOpenChange(open: boolean) {
-    setOpen(open);
-  }
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      setOpen(open);
+    },
+    [setOpen]
+  );
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>

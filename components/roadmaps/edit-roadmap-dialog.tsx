@@ -105,12 +105,15 @@ export default function EditRoadmapDialog({
     }
   }
 
-  function handleOpenChange(open: boolean) {
-    setIsOpen(open);
-    if (!open) {
-      form.reset();
-    }
-  }
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      if (!open) {
+        form.reset();
+      }
+    },
+    [setIsOpen, form]
+  );
 
   const errors = form.formState.errors;
 

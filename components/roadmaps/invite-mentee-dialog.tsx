@@ -91,12 +91,15 @@ export default function InviteMenteeDialog({
     }
   }
 
-  function handleOpenChange(open: boolean) {
-    setIsOpen(open);
-    if (!open) {
-      form.reset({ menteeEmail: "", roadmapId: roadmapId.toString() });
-    }
-  }
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      if (!open) {
+        form.reset({ menteeEmail: "", roadmapId: roadmapId.toString() });
+      }
+    },
+    [roadmapId, setIsOpen]
+  );
 
   const errors = form.formState.errors;
   const isSubmitted = form.formState.isSubmitted;

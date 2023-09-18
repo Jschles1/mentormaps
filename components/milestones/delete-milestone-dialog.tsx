@@ -61,13 +61,16 @@ export default function DeleteMilestoneDialog({
     }
   }
 
-  function handleOpenChange(open: boolean) {
-    setIsOpen(open);
-  }
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+    },
+    [setIsOpen]
+  );
 
-  function handleClose() {
+  const handleClose = React.useCallback(() => {
     setIsOpen(false);
-  }
+  }, [setIsOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
