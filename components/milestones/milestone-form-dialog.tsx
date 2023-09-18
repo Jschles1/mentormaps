@@ -32,6 +32,7 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
 import FormSubmitButton from "../form/form-submit-button";
+import { Milestone } from "@prisma/client";
 
 const urlSchema = z.string().url().optional().or(z.literal(""));
 
@@ -126,15 +127,36 @@ function MilestoneResource({
   );
 }
 
-interface CreateMilestoneDialogProps {
-  trigger?: React.ReactNode;
-  menteeId?: string;
+function parseMilestoneResources(resources: string[]) {
+  return resources.map((resource) => {
+    const [name, href] = resource.split("___***___");
+    return { name, href };
+  });
 }
 
-export default function CreateMilestoneDialog({
+const formDialogTitles = {
+  create: "Add New Milestone",
+  update: "Update Milestone",
+};
+
+const formSubmitButtonText = {
+  create: "Create Milestone",
+  update: "Update Milestone",
+};
+
+interface MilestoneFormDialogProps {
+  trigger?: React.ReactNode;
+  menteeId?: string;
+  milestone?: Milestone;
+  type: "create" | "update";
+}
+
+export default function MilestoneFormDialog({
   trigger,
   menteeId,
-}: CreateMilestoneDialogProps) {
+  milestone,
+  type,
+}: MilestoneFormDialogProps) {
   const queryClient = useQueryClient();
   const { userId } = useAuth();
   const params = useParams();
@@ -144,33 +166,53 @@ export default function CreateMilestoneDialog({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: milestone?.title || "",
+      description: milestone?.description || "",
       currentSubtask: "",
       currentResourceName: "",
       currentResourceHref: "",
+      subtasks: milestone?.subtasks || [],
+      resources: parseMilestoneResources(milestone?.resources || []),
     },
   });
 
   form.watch("subtasks");
   form.watch("resources");
 
-  const createMilestoneMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
-      axios.post(`/api/roadmaps/${params.roadmapId}/milestones`, {
-        title: variables.title,
-        description: variables.description,
-        subtasks: variables.subtasks,
-        resources: variables.resources,
-        menteeId: menteeId || "",
-      }),
+  const milestoneMutation = useMutation({
+    mutationFn: (variables: z.infer<typeof formSchema>) => {
+      if (type === "create") {
+        return axios.post(`/api/roadmaps/${params.roadmapId}/milestones`, {
+          title: variables.title,
+          description: variables.description,
+          subtasks: variables.subtasks,
+          resources: variables.resources,
+          menteeId: menteeId || "",
+        });
+      } else {
+        return axios.patch(
+          `/api/roadmaps/${params.roadmapId}/milestones/${milestone!.id}`,
+          {
+            title: variables.title,
+            description: variables.description,
+            subtasks: variables.subtasks,
+            resources: variables.resources,
+            menteeId: menteeId || "",
+          }
+        );
+      }
+    },
     onSuccess: async (_) => {
       setIsOpen(false);
+      const title =
+        type === "create"
+          ? "Successfully created milestone!"
+          : "Successfully updated milestone!";
       await queryClient.refetchQueries({
         queryKey: ["roadmap", params.roadmapId, userId],
       });
       toast({
-        title: "Successfully added milestone!",
+        title,
       });
       form.reset();
     },
@@ -185,7 +227,7 @@ export default function CreateMilestoneDialog({
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      createMilestoneMutation.mutate(values);
+      milestoneMutation.mutate(values);
     } catch (error) {
       // For preventing unhandled promise rejection
     }
@@ -291,7 +333,7 @@ export default function CreateMilestoneDialog({
       <DialogContent>
         <div>
           <DialogHeader>
-            <DialogTitle>Add New Milestone</DialogTitle>
+            <DialogTitle>{formDialogTitles[type]}</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -476,8 +518,8 @@ export default function CreateMilestoneDialog({
 
               <Separator />
 
-              <FormSubmitButton isLoading={createMilestoneMutation.isLoading}>
-                Create Milestone
+              <FormSubmitButton isLoading={milestoneMutation.isLoading}>
+                {formSubmitButtonText[type]}
               </FormSubmitButton>
 
               <Button

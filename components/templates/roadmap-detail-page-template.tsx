@@ -12,13 +12,13 @@ import { Button } from "../ui/button";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
-import CreateMilestoneDialog from "../milestones/create-milestone-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 import MilestoneCard from "../milestones/milestone-card";
 import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
 import { cn, roadmapStatusTextClass } from "@/lib/utils";
 import RoadmapDetailPageSkeleton from "../skeletons/roadmap-detail-page-skeleton";
+import MilestoneFormDialog from "../milestones/milestone-form-dialog";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -191,7 +191,8 @@ export default function RoadmapDetailPageTemplate({
           </div>
 
           {data?.isMentor && (
-            <CreateMilestoneDialog
+            <MilestoneFormDialog
+              type="create"
               trigger={<Button size="sm">Add Milestone</Button>}
               menteeId={data?.otherUser?.id}
             />

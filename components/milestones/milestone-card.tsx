@@ -19,10 +19,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import DeleteMilestoneDialog from "./delete-milestone-dialog";
-import EditMilestoneDialog from "./edit-milestone-dialog";
 import SubmitCompletionDialog from "./submit-completion-dialog";
 import ReviewSubmissionDialog from "./review-submission-dialog";
 import MilestoneMenteeSolution from "./milestone-mentee-solution";
+import MilestoneFormDialog from "./milestone-form-dialog";
 
 interface MilestoneCardProps {
   milestone: Milestone;
@@ -206,7 +206,8 @@ export default function MilestoneCard({
                         }
                       />
                     )}
-                    <EditMilestoneDialog
+                    <MilestoneFormDialog
+                      type="update"
                       milestone={milestone}
                       trigger={<Button>Edit Milestone</Button>}
                     />
