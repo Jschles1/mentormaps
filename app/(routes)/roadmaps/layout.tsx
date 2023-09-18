@@ -1,4 +1,3 @@
-import Navigation from "@/components/navigation/navigation";
 import DesktopUserMenu from "@/components/navigation/desktop-user-menu";
 import Logo from "public/images/logo-light.svg";
 import { UserButton, auth } from "@clerk/nextjs";
@@ -9,7 +8,7 @@ import AddButton from "@/components/navigation/add-button";
 import Image from "next/image";
 import NotificationDialog from "@/components/notifications/notification-dialog";
 
-export default async function DashboardLayout({
+export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;

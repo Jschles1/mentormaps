@@ -16,7 +16,7 @@ export default async function RoadmapDetailPage({
   );
 
   return (
-    <div>
+    <div className="lg:max-w-5xl lg:mx-auto">
       <RoadmapDetailPageTemplate
         roadmapId={roadmapId}
         roadmap={roadmap}
