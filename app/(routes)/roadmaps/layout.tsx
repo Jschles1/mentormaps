@@ -44,7 +44,6 @@ export default async function DashboardLayout({
             roadmapData={roadmapData}
             roadmapInvites={roadmapInvites}
             userId={userId as string}
-            notifications={notifications}
           />
         </div>
       </div>
@@ -53,7 +52,6 @@ export default async function DashboardLayout({
           roadmapData={roadmapData}
           roadmapInvites={roadmapInvites}
           userId={userId as string}
-          notifications={notifications}
         />
         <main className="h-full w-full px-4 py-6 mx-auto max-w-7xl">
           {children}

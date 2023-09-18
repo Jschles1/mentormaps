@@ -12,26 +12,22 @@ import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import { RoadmapInvite, Notification } from "@prisma/client";
 import { RoadmapData } from "@/lib/interfaces";
 import { useQuery } from "@tanstack/react-query";
-import { fetchNotifications, fetchRoadmapInvites } from "@/lib/fetchers";
-import NotificationDialog from "../notifications/notification-dialog";
+import { fetchRoadmapInvites } from "@/lib/fetchers";
 
 interface MobileUserMenuProps {
   roadmapInvites: RoadmapInvite[];
   roadmapData: RoadmapData[];
   userId: string;
-  notifications: Notification[];
 }
 
 export default function MobileUserMenu({
   roadmapData,
   roadmapInvites,
   userId,
-  notifications,
 }: MobileUserMenuProps) {
   // TODO: Show roadmaps that the user is a part of on non-home pages
   const [open, setOpen] = React.useState(false);
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
-  const notificationsQueryKey = ["notifications", userId];
   const { data } = useQuery({
     queryKey: roadmapInvitesQueryKey,
     queryFn: fetchRoadmapInvites,
@@ -63,12 +59,6 @@ export default function MobileUserMenu({
       </SheetTrigger>
       <SheetContent className="bg-lighter-blue-gray py-4 pr-4 pl-0">
         <div className="flex flex-col gap-4">
-          <RoadmapInviteDialog
-            roadmapInvites={data?.roadmapInvites}
-            roadmapData={data?.roadmapData}
-            userId={userId as string}
-          />
-
           <Link href="/roadmaps" onClick={handleClose}>
             <MenuButton>
               <div className="flex items-center gap-x-4">
@@ -76,6 +66,11 @@ export default function MobileUserMenu({
               </div>
             </MenuButton>
           </Link>
+          <RoadmapInviteDialog
+            roadmapInvites={data?.roadmapInvites}
+            roadmapData={data?.roadmapData}
+            userId={userId as string}
+          />
         </div>
       </SheetContent>
     </Sheet>
