@@ -206,7 +206,7 @@ export default function EditMilestoneDialog({
     }
   }
 
-  function handleAddSubtask() {
+  const handleAddSubtask = React.useCallback(() => {
     const currentSubtask = form.getValues("currentSubtask");
     const subtasks = form.getValues("subtasks") || [];
     if (currentSubtask) {
@@ -218,17 +218,20 @@ export default function EditMilestoneDialog({
         message: "Subtask is required.",
       });
     }
-  }
+  }, [form]);
 
-  function handleRemoveSubtask(subtask: string) {
-    const subtasks = form.getValues("subtasks") || [];
-    form.setValue(
-      "subtasks",
-      subtasks.filter((s) => s !== subtask)
-    );
-  }
+  const handleRemoveSubtask = React.useCallback(
+    (subtask: string) => {
+      const subtasks = form.getValues("subtasks") || [];
+      form.setValue(
+        "subtasks",
+        subtasks.filter((s) => s !== subtask)
+      );
+    },
+    [form]
+  );
 
-  function handleAddResource() {
+  const handleAddResource = React.useCallback(() => {
     const currentResourceName = form.getValues("currentResourceName");
     const currentResourceHref = form.getValues("currentResourceHref");
     let areFieldsPresent = true;
@@ -269,22 +272,28 @@ export default function EditMilestoneDialog({
     ]);
     form.resetField("currentResourceName");
     form.resetField("currentResourceHref");
-  }
+  }, [form]);
 
-  function handleRemoveResource(name: string) {
-    const resources = form.getValues("resources") || [];
-    form.setValue(
-      "resources",
-      resources.filter((r) => r.name !== name)
-    );
-  }
+  const handleRemoveResource = React.useCallback(
+    (name: string) => {
+      const resources = form.getValues("resources") || [];
+      form.setValue(
+        "resources",
+        resources.filter((r) => r.name !== name)
+      );
+    },
+    [form]
+  );
 
-  function handleOpenChange(open: boolean) {
-    setIsOpen(open);
-    if (!open) {
-      form.reset();
-    }
-  }
+  const handleOpenChange = React.useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      if (!open) {
+        form.reset();
+      }
+    },
+    [form, setIsOpen]
+  );
 
   const errors = form.formState.errors;
   const isSubmitted = form.formState.isSubmitted;

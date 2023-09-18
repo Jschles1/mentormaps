@@ -1,7 +1,8 @@
+import * as React from "react";
 import { LinkIcon } from "lucide-react";
 import Link from "next/link";
 
-export default function MilestoneMenteeSolution({
+export default React.memo(function MilestoneMenteeSolution({
   menteeSolutionComment,
   menteeSolutionUrl,
   isMentor,
@@ -40,4 +41,4 @@ export default function MilestoneMenteeSolution({
       </div>
     </div>
   );
-}
+});
