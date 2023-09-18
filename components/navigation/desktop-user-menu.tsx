@@ -31,7 +31,7 @@ export default function DesktopUserMenu({
   });
 
   return (
-    <div className="bg-white py-4 pr-4 pl-0 hidden lg:block h-[calc(100vh-4rem)] w-[24rem] border-lighter-blue-gray border border-l-0 border-b-0">
+    <div className="bg-white py-4 pr-4 pl-0 hidden lg:block min-h-[calc(100vh-4rem)] h-full w-[24rem] border-lighter-blue-gray border border-l-0 border-b-0">
       <div className="flex flex-col gap-4">
         <Link href="/roadmaps">
           <MenuButton>

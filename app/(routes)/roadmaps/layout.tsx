@@ -52,8 +52,8 @@ export default async function AppLayout({
           roadmapInvites={roadmapInvites}
           userId={userId as string}
         />
-        <main className="h-full w-full px-4 py-6 mx-auto max-w-7xl">
-          {children}
+        <main className="h-full w-full lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
+          <div className="px-4 py-6 mx-auto max-w-7xl">{children}</div>
         </main>
       </div>
     </div>

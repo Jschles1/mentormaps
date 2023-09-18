@@ -193,7 +193,7 @@ export default function MilestoneCard({
               <div className="flex flex-col gap-y-2">
                 {/* Mentor Options or Mentee Options */}
                 {isMentor ? (
-                  <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-4">
+                  <div className="flex flex-col gap-y-2 md:flex-row md:gap-x-4">
                     {isPendingReview && (
                       <ReviewSubmissionDialog
                         milestoneId={id}
@@ -213,7 +213,7 @@ export default function MilestoneCard({
                     <DeleteMilestoneDialog milestoneId={id} />
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-y-2 lg:flex-row lg:gap-x-4">
+                  <div className="flex flex-col gap-y-2 md:flex-row md:gap-x-4">
                     {status === "PendingCompletionReview" && (
                       <Button variant="secondary" disabled>
                         Pending Mentor Review...
