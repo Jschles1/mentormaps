@@ -18,6 +18,7 @@ import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
 import MilestoneCard from "../milestones/milestone-card";
 import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
 import { cn, roadmapStatusTextClass } from "@/lib/utils";
+import RoadmapDetailPageSkeleton from "../skeletons/roadmap-detail-page-skeleton";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -36,16 +37,21 @@ export default function RoadmapDetailPageTemplate({
 }: RoadmapDetailPageTemplateProps) {
   const roadmapQueryKey = ["roadmap", roadmapId, currentUser?.id];
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-  const { data } = useQuery({
-    queryKey: roadmapQueryKey,
-    queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
-    initialData: { roadmap, isMentor, otherUser, currentUser },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
+  const { data, isLoading, isFetching, isRefetching, isInitialLoading } =
+    useQuery({
+      queryKey: roadmapQueryKey,
+      queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
+      initialData: { roadmap, isMentor, otherUser, currentUser },
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    });
 
   function handlePopoverOpenChange(open: boolean) {
     setIsPopoverOpen(open);
+  }
+
+  if (isLoading || isInitialLoading || isFetching || isRefetching) {
+    return <RoadmapDetailPageSkeleton />;
   }
 
   const hasNoMentee = data?.isMentor && !data?.otherUser;

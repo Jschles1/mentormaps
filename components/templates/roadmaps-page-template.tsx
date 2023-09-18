@@ -19,15 +19,16 @@ export default function RoadmapsPageTemplate({
   userId,
 }: RoadmapsPageTemplateProps) {
   const roadmapsQueryKey = ["roadmaps", userId];
-  const { data, isFetching, isLoading, isInitialLoading } = useQuery({
-    queryKey: roadmapsQueryKey,
-    queryFn: fetchRoadmaps,
-    initialData: { mentorRoadmaps, menteeRoadmaps },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-  });
+  const { data, isFetching, isLoading, isInitialLoading, isRefetching } =
+    useQuery({
+      queryKey: roadmapsQueryKey,
+      queryFn: fetchRoadmaps,
+      initialData: { mentorRoadmaps, menteeRoadmaps },
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    });
 
-  if (isLoading || isInitialLoading || isFetching) {
+  if (isLoading || isInitialLoading || isFetching || isRefetching) {
     return <RoadmapsPageSkeleton />;
   }
 
