@@ -15,6 +15,7 @@ import {
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import FormSubmitButton from "../form/form-submit-button";
 
 interface BeginRoadmapDialogProps {
   trigger?: React.ReactNode;
@@ -32,7 +33,6 @@ export default function BeginRoadmapDialog({
   const beginRoadmapMutation = useMutation({
     mutationFn: () => axios.post(`/api/roadmaps/${params.roadmapId}/start`),
     onSuccess: async (_) => {
-      console.log("begin success");
       setIsOpen(false);
       await queryClient.refetchQueries({
         queryKey: ["roadmap", params.roadmapId, userId],
@@ -72,7 +72,12 @@ export default function BeginRoadmapDialog({
             &quot;Active&quot;. This cannot be reversed.
           </DialogDescription>
           <div className="flex flex-col gap-y-4">
-            <Button onClick={handleBeginRoadmap}>Begin</Button>
+            <FormSubmitButton
+              onClick={handleBeginRoadmap}
+              isLoading={beginRoadmapMutation.isLoading}
+            >
+              Begin
+            </FormSubmitButton>
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>

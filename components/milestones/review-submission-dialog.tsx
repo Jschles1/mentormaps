@@ -30,6 +30,7 @@ import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
 import MilestoneMenteeSolution from "./milestone-mentee-solution";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import FormSubmitButton from "../form/form-submit-button";
 
 const formSchema = z.object({
   mentorFeedbackComment: z.string().min(1, {
@@ -186,14 +187,9 @@ export default function ReviewSubmissionDialog({
 
               <Separator />
 
-              <Button
-                type="submit"
-                variant="default"
-                size="sm"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
-              >
+              <FormSubmitButton isLoading={reviewSubmissionMutation.isLoading}>
                 Submit
-              </Button>
+              </FormSubmitButton>
 
               <Button
                 type="button"

@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/form";
 import { useAuth } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import FormSubmitButton from "../form/form-submit-button";
 
 const formSchema = z.object({
   menteeEmail: z.string().email(),
@@ -121,14 +121,9 @@ export default function InviteMenteeDialog({
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              variant="default"
-              size="sm"
-              className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
-            >
+            <FormSubmitButton isLoading={inviteMenteeMutation.isLoading}>
               Send Invite
-            </Button>
+            </FormSubmitButton>
           </form>
         </Form>
       </DialogContent>

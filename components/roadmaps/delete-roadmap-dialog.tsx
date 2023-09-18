@@ -14,6 +14,7 @@ import {
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import FormSubmitButton from "../form/form-submit-button";
 
 export default function DeleteRoadmapDialog() {
   const { toast } = useToast();
@@ -67,10 +68,19 @@ export default function DeleteRoadmapDialog() {
             reversed.
           </DialogDescription>
           <div className="flex flex-col gap-y-4">
-            <Button variant="destructive" onClick={handleDelete}>
+            <FormSubmitButton
+              type="button"
+              variant="destructive"
+              onClick={handleDelete}
+              isLoading={deleteRoadmapMutation.isLoading}
+            >
               Delete
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
+            </FormSubmitButton>
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              disabled={deleteRoadmapMutation.isLoading}
+            >
               Cancel
             </Button>
           </div>

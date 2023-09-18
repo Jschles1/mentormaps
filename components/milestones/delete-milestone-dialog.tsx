@@ -15,6 +15,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { useAuth } from "@clerk/nextjs";
+import FormSubmitButton from "../form/form-submit-button";
 
 interface DeleteMilestoneDialogProps {
   milestoneId: number;
@@ -81,9 +82,13 @@ export default function DeleteMilestoneDialog({
             reversed.
           </DialogDescription>
           <div className="flex flex-col gap-y-4">
-            <Button variant="destructive" onClick={handleDelete}>
+            <FormSubmitButton
+              isLoading={deleteMilestonesMutation.isLoading}
+              variant="destructive"
+              onClick={handleDelete}
+            >
               Delete
-            </Button>
+            </FormSubmitButton>
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>

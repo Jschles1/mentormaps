@@ -31,6 +31,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
+import FormSubmitButton from "../form/form-submit-button";
 
 const urlSchema = z.string().url().optional().or(z.literal(""));
 
@@ -458,14 +459,9 @@ export default function CreateMilestoneDialog({
 
               <Separator />
 
-              <Button
-                type="submit"
-                variant="default"
-                size="sm"
-                className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
-              >
+              <FormSubmitButton isLoading={createMilestoneMutation.isLoading}>
                 Create Milestone
-              </Button>
+              </FormSubmitButton>
 
               <Button
                 type="button"

@@ -16,6 +16,7 @@ import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RoadmapData } from "@/lib/interfaces";
+import FormSubmitButton from "../form/form-submit-button";
 
 interface RoadmapInviteDialogProps {
   roadmapInvites: RoadmapInvite[];
@@ -39,7 +40,6 @@ export default function RoadmapInviteDialog({
         roadmapId: variables.roadmapId,
       }),
     onSuccess: (data) => {
-      console.log("Mutation success!", data);
       queryClient.invalidateQueries({ queryKey: roadmapInvitesQueryKey });
       queryClient.invalidateQueries({ queryKey: ["roadmaps"] });
       if (params.roadmapId) {
@@ -85,19 +85,23 @@ export default function RoadmapInviteDialog({
                   <p className="text-black-darkest font-bold">{data.title}</p>
                   <p className="text-sm text-gray">Mentor: {data.mentorName}</p>
                   <div className="flex items-center mt-2 gap-x-2">
-                    <Button
+                    <FormSubmitButton
+                      isLoading={inviteResponseMutation.isLoading}
+                      type="button"
                       className="w-full"
                       onClick={() => handleAccept(data.roadmapId)}
                     >
                       Accept
-                    </Button>
-                    <Button
+                    </FormSubmitButton>
+                    <FormSubmitButton
+                      isLoading={inviteResponseMutation.isLoading}
+                      type="button"
                       variant="destructive"
                       className="w-full"
                       onClick={() => handleDecline(data.roadmapId)}
                     >
                       Decline
-                    </Button>
+                    </FormSubmitButton>
                   </div>
                 </div>
               ))

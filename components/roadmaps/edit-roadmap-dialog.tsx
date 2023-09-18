@@ -27,6 +27,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { useParams } from "next/navigation";
+import FormSubmitButton from "../form/form-submit-button";
 
 const formSchema = z.object({
   title: z
@@ -156,14 +157,9 @@ export default function EditRoadmapDialog({
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              variant="default"
-              size="sm"
-              className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
-            >
+            <FormSubmitButton isLoading={updateRoadmapMutation.isLoading}>
               Update Roadmap
-            </Button>
+            </FormSubmitButton>
           </form>
         </Form>
       </DialogContent>

@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import FormSubmitButton from "../form/form-submit-button";
 
 const formSchema = z.object({
   title: z
@@ -177,14 +177,9 @@ export default function CreateRoadMapDialog({
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              variant="default"
-              size="sm"
-              className="w-full px-[1.125rem] py-4 text-[0.938rem] rounded-3xl"
-            >
+            <FormSubmitButton isLoading={createRoadmapMutation.isLoading}>
               Create Roadmap
-            </Button>
+            </FormSubmitButton>
           </form>
         </Form>
       </DialogContent>
