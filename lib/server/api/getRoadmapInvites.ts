@@ -13,6 +13,8 @@ export default async function getRoadmapInvites(userId: string) {
       },
     });
 
+    console.log({ roadmapInvites });
+
     const invitedRoadmapDataPromises = await roadmapInvites.map(
       async (invite): Promise<RoadmapInviteData> => {
         const roadmap = (await prismadb.roadmap.findUnique({
@@ -27,7 +29,11 @@ export default async function getRoadmapInvites(userId: string) {
       }
     );
 
+    console.log({ invitedRoadmapDataPromises });
+
     const results = await Promise.allSettled(invitedRoadmapDataPromises);
+
+    console.log({ results });
     const invitedRoadmapData = results
       .filter(
         (result): result is PromiseFulfilledResult<RoadmapInviteData> =>
@@ -38,6 +44,8 @@ export default async function getRoadmapInvites(userId: string) {
         title: result.value.roadmap.title,
         mentorName: `${result.value.mentor.firstName} ${result.value.mentor.lastName}`,
       }));
+
+    console.log({ invitedRoadmapData });
 
     return { roadmapInvites, roadmapData: invitedRoadmapData };
   } catch (error: any) {
