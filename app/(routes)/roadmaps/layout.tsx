@@ -24,7 +24,7 @@ export default async function AppLayout({
       <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
         <div className="flex items-center gap-x-4">
           <Image className="block" src={Logo} alt="Roadmap Logo" />
-          <h1 className="text-[1.125rem] font-bold">Roadmap</h1>
+          <h1 className="text-lg font-bold">Roadmap</h1>
         </div>
 
         <div className="flex items-center gap-x-4">

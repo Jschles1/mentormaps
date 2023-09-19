@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="text-[1.125rem] h-full w-full text-gray font-bold flex items-center justify-center">
+    <div className="text-lg h-full w-full text-gray font-bold flex items-center justify-center">
       <div className="flex flex-col w-[300px] items-center gap-y-4">
         <h2>Something went wrong!</h2>
         <Link href="/roadmaps">
