@@ -1,6 +1,5 @@
 import prismadb from "@/lib/prisma-db";
 import { clerkClient } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
 import { Roadmap } from "@prisma/client";
 import { RoadmapInviteData } from "@/lib/interfaces";
 
