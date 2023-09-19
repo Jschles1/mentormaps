@@ -20,7 +20,7 @@ export async function fetchNotifications() {
     }
     return response.data;
   } catch (error: any) {
-    throw new Error("Error fetching Roadmaps :", error);
+    throw new Error("Error fetching Notifications:", error);
   }
 }
 
@@ -32,7 +32,7 @@ export async function fetchRoadmapDetails(roadmapId: string) {
     }
     return response.data;
   } catch (error: any) {
-    throw new Error("Error fetching Roadmaps :", error);
+    throw new Error("Error fetching Roadmap Details:", error);
   }
 }
 
@@ -44,6 +44,6 @@ export async function fetchRoadmapInvites() {
     }
     return response.data;
   } catch (error: any) {
-    throw new Error("Error fetching Roadmap Invites :", error);
+    throw new Error("Error fetching Roadmap Invites:", error);
   }
 }
