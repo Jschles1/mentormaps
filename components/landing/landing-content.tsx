@@ -111,7 +111,7 @@ export default function LandingContent() {
                   </div>
                 </li>
                 <li>
-                  <div className="font-bold">Track Progress</div>
+                  <div className="font-bold">Track Progress:</div>
                   <div className="text-gray">
                     Complete milestones, get real-time feedback, and watch as
                     you or your mentee moves closer to the end goal.
