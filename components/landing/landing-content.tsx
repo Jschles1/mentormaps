@@ -10,7 +10,7 @@ const features = [
     emoji: "👩‍🏫",
     name: "Be a Mentor, Be a Mentee — Your Choice!",
     description:
-      "With MentorPath, you're in control. Choose to guide others as a mentor, seek guidance as a mentee, or even do both in different roadmaps!",
+      "With MentorMaps, you're in control. Choose to guide others as a mentor, seek guidance as a mentee, or even do both in different roadmaps!",
   },
   {
     emoji: "🎯",
@@ -80,7 +80,7 @@ export default function LandingContent() {
                 <li>
                   <div className="font-bold">Sign Up:</div>
                   <div className="text-gray">
-                    Create your free MentorPath account.
+                    Create your free MentorMaps account.
                   </div>
                 </li>
                 <li>
@@ -129,7 +129,7 @@ export default function LandingContent() {
           <div>
             <Link href={isSignedIn ? "/roadmaps" : "/sign-up"}>
               <Button className="md:text-lg p-4 md:p-6 rounded-full font-semibold">
-                Start MentorPath For Free
+                Start MentorMaps For Free
               </Button>
             </Link>
           </div>
