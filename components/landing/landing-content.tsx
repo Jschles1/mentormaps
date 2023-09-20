@@ -4,6 +4,8 @@ import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "../ui/button";
+import LandingLogo from "public/images/landing-logo.png";
+import Image from "next/image";
 
 const features = [
   {
@@ -75,7 +77,10 @@ export default function LandingContent() {
 
         <Card className="bg-white border-none text-black-darkest">
           <CardHeader className="flex flex-col justify-between h-full">
-            <CardContent className="">
+            <CardContent className="flex flex-col md:flex-row md:items-center md:gap-x-2 md:py-2">
+              <div className="-mt-6 md:mt-0 md:-ml-6">
+                <Image src={LandingLogo} alt="MentorMaps Logo" />
+              </div>
               <ol className="list-decimal text-black-darkest flex flex-col gap-y-4">
                 <li>
                   <div className="font-bold">Sign Up:</div>

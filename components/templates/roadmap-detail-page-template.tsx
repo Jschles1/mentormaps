@@ -159,7 +159,7 @@ export default function RoadmapDetailPageTemplate({
         )}
 
         {data?.isMentor && (
-          <div className="mt-6 flex flex-col gap-y-4">
+          <div className="mt-6 flex flex-col gap-y-4 md:flex-row md:gap-x-4">
             {hasNoMentee && (
               <InviteMenteeDialog
                 trigger={

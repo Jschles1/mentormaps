@@ -1,5 +1,5 @@
 import DesktopUserMenu from "@/components/navigation/desktop-user-menu";
-import Logo from "public/images/logo-light.svg";
+import Logo from "public/images/logo-light-2.png";
 import { UserButton, auth } from "@clerk/nextjs";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 import getNotifications from "@/lib/server/api/getNotifications";
@@ -21,13 +21,13 @@ export default async function AppLayout({
 
   return (
     <div className="h-full w-full min-h-screen flex flex-col bg-lighter-blue-gray relative">
-      <div className="h-16 py-5 px-4 bg-white flex items-center justify-between z-49">
-        <div className="flex items-center gap-x-4">
+      <div className="h-16 py-5 px-4 pl-2 bg-white flex items-center justify-between z-49">
+        <div className="flex items-center">
           <Image className="block" src={Logo} alt="MentorMaps Logo" />
           <h1 className="text-lg font-bold">MentorMaps</h1>
         </div>
 
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-3">
           <AddButton />
           <UserButton
             afterSignOutUrl="/sign-in"
