@@ -4,7 +4,6 @@ import { Roadmap } from "@prisma/client";
 import { RoadmapInviteData } from "@/lib/interfaces";
 
 export default async function getRoadmapInvites(userId: string) {
-  console.log({ userId });
   try {
     const roadmapInvites = await prismadb.roadmapInvite.findMany({
       where: {
