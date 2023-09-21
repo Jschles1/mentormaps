@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# MentorMaps
 
-First, run the development server:
+MentorMaps is a web application that helps mentors guide mentees towards their goals.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Users can choose to participate as either a mentor or mentee. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mentors can then create roadmaps with associated milestones, allowing them to create a fully customized growth experience for their mentee. Mentees can submit work for each milestone where Mentors can then provide feedback.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+App design is inspired by the [Kanban task management web app](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB) challenge design by FrontendMentor.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Visit the live website [here](https://mentormaps.vercel.app/).
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+-   [Next.js 13 w/ App Router](https://nextjs.org)
+-   [Clerk](https://clerk.com/)
+-   [Prisma](https://prisma.io)
+-   [Tailwind CSS](https://tailwindcss.com)
+-   [React Query](https://tanstack.com/query/latest)
+-   [Shadcn Component Library](https://ui.shadcn.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Post MVP TODO
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   Unit Testing w/ Jest or Vitest
+-   End to end testing with Playwright
+-   Migrate off of Vercel or purchase domain name to enable Clerk production environment (using dev environment for now)
+-   Implement Text Editor component to allow for more rich roadmap and milestone descriptions and feeback
+-   Improvements to desktop and tablet design
