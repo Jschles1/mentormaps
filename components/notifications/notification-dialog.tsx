@@ -13,8 +13,8 @@ import { Notification } from "@prisma/client";
 import { Bell } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@clerk/nextjs";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchNotifications } from "@/lib/fetchers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useNotifications from "@/lib/hooks/useNotifications";
 
 interface NotificationDialogProps {
   notifications: Notification[];
@@ -27,12 +27,9 @@ export default function NotificationDialog({
   const queryClient = useQueryClient();
   const notificationsQueryKey = ["notifications", userId];
 
-  const { data: notificationsData } = useQuery({
+  const { data: notificationsData } = useNotifications({
     queryKey: notificationsQueryKey,
-    queryFn: fetchNotifications,
-    initialData: notifications,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
+    initialData: { notifications: notifications },
   });
 
   const dismissNotificationMutation = useMutation({
