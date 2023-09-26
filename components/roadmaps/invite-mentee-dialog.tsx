@@ -38,6 +38,8 @@ interface InviteMenteeDialogProps {
   roadmapId: number | string;
 }
 
+type FormValues = z.infer<typeof formSchema>;
+
 export default function InviteMenteeDialog({
   trigger,
   roadmapId,
@@ -47,7 +49,7 @@ export default function InviteMenteeDialog({
   const { userId } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       menteeEmail: "",
@@ -56,7 +58,7 @@ export default function InviteMenteeDialog({
   });
 
   const inviteMenteeMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
+    mutationFn: (variables: FormValues) =>
       axios.post("/api/roadmap-invites/send-invite", {
         menteeEmail: variables?.menteeEmail?.trim(),
         roadmapId: variables?.roadmapId,
@@ -83,7 +85,7 @@ export default function InviteMenteeDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       inviteMenteeMutation.mutate(values);
     } catch (error) {

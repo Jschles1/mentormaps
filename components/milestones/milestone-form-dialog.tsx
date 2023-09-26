@@ -151,6 +151,8 @@ interface MilestoneFormDialogProps {
   type: "create" | "update";
 }
 
+type FormValues = z.infer<typeof formSchema>;
+
 export default function MilestoneFormDialog({
   trigger,
   menteeId,
@@ -163,7 +165,7 @@ export default function MilestoneFormDialog({
   const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: milestone?.title || "",
@@ -180,7 +182,7 @@ export default function MilestoneFormDialog({
   form.watch("resources");
 
   const milestoneMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) => {
+    mutationFn: (variables: FormValues) => {
       if (type === "create") {
         return axios.post(`/api/roadmaps/${params.roadmapId}/milestones`, {
           title: variables.title,
@@ -225,7 +227,7 @@ export default function MilestoneFormDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       milestoneMutation.mutate(values);
     } catch (error) {

@@ -54,6 +54,8 @@ interface EditRoadmapDialogProps {
   closePopover: () => void;
 }
 
+type FormValues = z.infer<typeof formSchema>;
+
 export default function EditRoadmapDialog({
   title,
   goal,
@@ -64,7 +66,7 @@ export default function EditRoadmapDialog({
   const params = useParams();
   const { userId } = useAuth();
   const [isOpen, setIsOpen] = React.useState(false);
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title,
@@ -73,7 +75,7 @@ export default function EditRoadmapDialog({
   });
 
   const updateRoadmapMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
+    mutationFn: (variables: FormValues) =>
       axios.patch(`/api/roadmaps/${params.roadmapId}`, {
         title: variables.title,
         goal: variables.goal,
@@ -97,7 +99,7 @@ export default function EditRoadmapDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       updateRoadmapMutation.mutate(values);
     } catch (error) {

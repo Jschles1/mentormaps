@@ -43,6 +43,8 @@ interface SubmitCompletionDialogProps {
   milestoneId: number;
 }
 
+type FormValues = z.infer<typeof formSchema>;
+
 export default function SubmitCompletionDialog({
   trigger,
   milestoneId,
@@ -53,7 +55,7 @@ export default function SubmitCompletionDialog({
   const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       menteeSolutionComment: "",
@@ -62,7 +64,7 @@ export default function SubmitCompletionDialog({
   });
 
   const submitMilestoneCompletionMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
+    mutationFn: (variables: FormValues) =>
       axios.patch(
         `/api/roadmaps/${params.roadmapId}/milestones/${milestoneId}`,
         {
@@ -92,7 +94,7 @@ export default function SubmitCompletionDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       submitMilestoneCompletionMutation.mutate(values);
     } catch (error) {

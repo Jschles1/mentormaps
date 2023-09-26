@@ -47,6 +47,8 @@ const formSchema = z.object({
   menteeEmail: z.string().email().optional().or(z.literal("")),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 interface CreateRoadMapDialogProps {
   trigger?: React.ReactNode;
 }
@@ -58,7 +60,7 @@ export default function CreateRoadMapDialog({
   const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
@@ -68,7 +70,7 @@ export default function CreateRoadMapDialog({
   });
 
   const createRoadmapMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
+    mutationFn: (variables: FormValues) =>
       axios.post("/api/create-roadmap", {
         title: variables.title,
         goal: variables.goal,
@@ -98,7 +100,7 @@ export default function CreateRoadMapDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       createRoadmapMutation.mutate(values);
     } catch (error) {

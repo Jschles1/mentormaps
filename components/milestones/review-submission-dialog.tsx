@@ -49,6 +49,8 @@ interface ReviewSubmissionDialogProps {
   menteeSolutionComment: string | null;
 }
 
+type FormValues = z.infer<typeof formSchema>;
+
 export default function ReviewSubmissionDialog({
   trigger,
   milestoneId,
@@ -61,7 +63,7 @@ export default function ReviewSubmissionDialog({
   const { toast } = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       mentorFeedbackComment: "",
@@ -70,7 +72,7 @@ export default function ReviewSubmissionDialog({
   });
 
   const reviewSubmissionMutation = useMutation({
-    mutationFn: (variables: z.infer<typeof formSchema>) =>
+    mutationFn: (variables: FormValues) =>
       axios.patch(
         `/api/roadmaps/${params.roadmapId}/milestones/${milestoneId}`,
         {
@@ -98,7 +100,7 @@ export default function ReviewSubmissionDialog({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     try {
       reviewSubmissionMutation.mutate(values);
     } catch (error) {
