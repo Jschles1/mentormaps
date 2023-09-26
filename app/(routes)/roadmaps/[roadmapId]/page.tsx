@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import getRoadmapDetails from "@/lib/server/api/getRoadmapDetails";
-import RoadmapDetailPageTemplate from "@/components/templates/roadmap-detail-page-template";
+import RoadmapDetailPageTemplate from "@/components/templates/roadmap-detail-page-template/roadmap-detail-page-template";
 
 export default async function RoadmapDetailPage({
   params,

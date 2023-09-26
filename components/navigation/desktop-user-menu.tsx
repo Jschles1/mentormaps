@@ -3,11 +3,10 @@
 import { RoadmapInvite } from "@prisma/client";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import { RoadmapData } from "@/lib/interfaces";
-import { useQuery } from "@tanstack/react-query";
-import { fetchRoadmapInvites } from "@/lib/fetchers";
 import Link from "next/link";
 import MenuButton from "./menu-button";
 import { Map } from "lucide-react";
+import useRoadmapInvites from "@/lib/hooks/useRoadmapInvites";
 
 interface DesktopUserMenuProps {
   roadmapInvites: RoadmapInvite[];
@@ -22,12 +21,9 @@ export default function DesktopUserMenu({
 }: DesktopUserMenuProps) {
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
 
-  const { data } = useQuery({
+  const { data } = useRoadmapInvites({
     queryKey: roadmapInvitesQueryKey,
-    queryFn: fetchRoadmapInvites,
     initialData: { roadmapInvites, roadmapData },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
 
   return (

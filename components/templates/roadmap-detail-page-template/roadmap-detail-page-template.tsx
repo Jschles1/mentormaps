@@ -1,24 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { fetchRoadmapDetails } from "@/lib/fetchers";
-import { useQuery } from "@tanstack/react-query";
 import { Milestone } from "@prisma/client";
 import Image from "next/image";
 import { Map, MilestoneIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { UserInfo, RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
-import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";
-import InviteMenteeDialog from "../roadmaps/invite-mentee-dialog";
-import MilestoneCard from "../milestones/milestone-card";
-import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+import EditRoadmapDialog from "../../roadmaps/edit-roadmap-dialog";
+import DeleteRoadmapDialog from "../../roadmaps/delete-roadmap-dialog";
+import InviteMenteeDialog from "../../roadmaps/invite-mentee-dialog";
+import MilestoneCard from "../../milestones/milestone-card";
+import BeginRoadmapDialog from "../../roadmaps/begin-roadmap-dialog";
 import { cn, roadmapStatusTextClass } from "@/lib/utils";
-import RoadmapDetailPageSkeleton from "../skeletons/roadmap-detail-page-skeleton";
-import MilestoneFormDialog from "../milestones/milestone-form-dialog";
+import RoadmapDetailPageSkeleton from "../../skeletons/roadmap-detail-page-skeleton";
+import MilestoneFormDialog from "../../milestones/milestone-form-dialog";
+import useRoadmapDetail from "@/lib/hooks/useRoadmapDetail";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -38,12 +37,15 @@ export default function RoadmapDetailPageTemplate({
   const roadmapQueryKey = ["roadmap", roadmapId, currentUser?.id];
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { data, isLoading, isFetching, isRefetching, isInitialLoading } =
-    useQuery({
+    useRoadmapDetail({
       queryKey: roadmapQueryKey,
-      queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
-      initialData: { roadmap, isMentor, otherUser, currentUser },
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      roadmapId: roadmapId,
+      initialData: {
+        isMentor: isMentor,
+        otherUser: otherUser,
+        currentUser: currentUser,
+        roadmap: roadmap,
+      },
     });
 
   function handlePopoverOpenChange(open: boolean) {
