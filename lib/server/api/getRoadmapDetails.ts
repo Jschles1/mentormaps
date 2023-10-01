@@ -79,6 +79,6 @@ export default async function getRoadmapDetails(
       currentUser,
     };
   } catch (error: any) {
-    throw new Error("Error fetching Mentee Roadmap Details:", error);
+    throw new Error("Error fetching Roadmap Details:", error);
   }
 }
