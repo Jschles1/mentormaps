@@ -1,9 +1,9 @@
 "use client";
 
 import { Roadmap } from "@prisma/client";
-import RoadmapList from "../roadmaps/roadmap-list";
-import NoRoadmaps from "../roadmaps/no-roadmaps";
-import RoadmapsPageSkeleton from "../skeletons/roadmaps-page-skeleton";
+import RoadmapList from "../../roadmaps/roadmap-list";
+import NoRoadmaps from "../../roadmaps/no-roadmaps";
+import RoadmapsPageSkeleton from "../../skeletons/roadmaps-page-skeleton";
 import useRoadmaps from "@/lib/hooks/useRoadmaps";
 
 interface RoadmapsPageTemplateProps {
