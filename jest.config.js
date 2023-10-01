@@ -24,7 +24,6 @@ const customJestConfig = {
     "!./**/_*.{js,jsx,ts,tsx}",
     "!./**/*.stories.{js,jsx,ts,tsx}",
     "!**/*.d.ts",
-    "!**/layout.tsx",
     "!**/loading.tsx",
     "!**/error.tsx",
     "!<rootDir>/jest.config.js",
