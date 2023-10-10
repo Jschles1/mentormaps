@@ -42,13 +42,11 @@ export default function NotificationDialog({
         notificationsQueryKey,
         allNotifications.filter((n) => n.id !== variables.id)
       );
-      console.log("Mutation onMutate!", allNotifications);
       return { allNotifications };
     },
     mutationFn: (variables: { id: number }) =>
       axios.delete(`/api/notifications/${variables.id}`),
     onSuccess: async (data) => {
-      console.log("Mutation success!", data);
       await queryClient.invalidateQueries({ queryKey: notificationsQueryKey });
     },
     onError: (_, __, context) => {
