@@ -24,7 +24,7 @@ describe("Roadmaps Page", () => {
       }));
     });
     const Result = await Page();
-    const { baseElement } = render(Result, { wrapper: AppWrapper });
+    render(Result, { wrapper: AppWrapper });
 
     expect(
       screen.getByText("You currently do not own or belong to any roadmaps.")
