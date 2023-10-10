@@ -1,7 +1,7 @@
 import { Roadmap } from "@prisma/client";
-import RoadmapCard from "./roadmap-card";
-import NoMenteeRoadmaps from "./no-mentee-roadmaps";
-import NoMentorRoadmaps from "./no-mentor-roadmaps";
+import RoadmapCard from "../roadmap-card";
+import NoMenteeRoadmaps from "../no-mentee-roadmaps";
+import NoMentorRoadmaps from "../no-mentor-roadmaps";
 import { RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 
 interface RoadmapListProps {
