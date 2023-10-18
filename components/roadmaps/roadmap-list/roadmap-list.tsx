@@ -1,4 +1,4 @@
-import RoadmapCard from "../roadmap-card";
+import RoadmapCard from "../roadmap-card/roadmap-card";
 import { RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 
 interface RoadmapListProps {
