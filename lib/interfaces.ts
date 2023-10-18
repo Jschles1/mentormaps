@@ -1,3 +1,5 @@
+// TODO: Remove this file and place types closer to where they are used.
+
 import { User } from "@clerk/nextjs/server";
 import { Milestone, Roadmap, RoadmapInvite } from "@prisma/client";
 
