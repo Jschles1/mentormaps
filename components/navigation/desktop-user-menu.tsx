@@ -4,7 +4,7 @@ import { RoadmapInvite } from "@prisma/client";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import { RoadmapData } from "@/lib/interfaces";
 import Link from "next/link";
-import MenuButton from "./menu-button";
+import MenuButton from "./menu-button/menu-button";
 import { Map } from "lucide-react";
 import useRoadmapInvites from "@/lib/hooks/useRoadmapInvites";
 

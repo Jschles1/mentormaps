@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import MenuButton from "../navigation/menu-button";
+import MenuButton from "../navigation/menu-button/menu-button";
 import { RoadmapInvite } from "@prisma/client";
 import { Mail } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

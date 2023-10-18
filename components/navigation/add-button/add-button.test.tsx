@@ -16,7 +16,6 @@ describe("AddButton", () => {
     const { baseElement, getByRole } = render(<AddButton />, {
       wrapper: AppWrapper,
     });
-    console.log(baseElement.innerHTML);
     expect(baseElement).toBeTruthy();
     expect(getByRole("button")).toBeInTheDocument();
   });
@@ -26,7 +25,6 @@ describe("AddButton", () => {
     const { baseElement, queryByRole } = render(<AddButton />, {
       wrapper: AppWrapper,
     });
-    console.log(baseElement.innerHTML);
     expect(baseElement).toBeTruthy();
     expect(queryByRole("button")).not.toBeInTheDocument();
   });
