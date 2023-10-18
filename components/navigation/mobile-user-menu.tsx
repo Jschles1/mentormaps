@@ -24,7 +24,6 @@ export default function MobileUserMenu({
   roadmapInvites,
   userId,
 }: MobileUserMenuProps) {
-  // TODO: Show roadmaps that the user is a part of on non-home pages
   const [open, setOpen] = React.useState(false);
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
   const { data } = useRoadmapInvites({
