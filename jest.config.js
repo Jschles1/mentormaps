@@ -31,6 +31,8 @@ const customJestConfig = {
     "!<rootDir>/next.config.js",
     "!<rootDir>/postcss.config.js",
     "!<rootDir>/tailwind.config.ts",
+    "!<rootDir>/app/layout.tsx",
+    "!<rootDir>/app/query-providers.tsx",
     "!**/node_modules/**",
     "!./components/ui/**",
   ],
