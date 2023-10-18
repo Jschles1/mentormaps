@@ -4,7 +4,7 @@ import { UserButton, auth } from "@clerk/nextjs";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 import getNotifications from "@/lib/server/api/getNotifications";
 import MobileUserMenu from "@/components/navigation/mobile-user-menu";
-import AddButton from "@/components/navigation/add-button";
+import AddButton from "@/components/navigation/add-button/add-button";
 import Image from "next/image";
 import NotificationDialog from "@/components/notifications/notification-dialog";
 
