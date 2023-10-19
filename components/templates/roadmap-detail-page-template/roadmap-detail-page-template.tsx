@@ -12,7 +12,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 import EditRoadmapDialog from "../../roadmaps/edit-roadmap-dialog";
 import DeleteRoadmapDialog from "../../roadmaps/delete-roadmap-dialog";
 import InviteMenteeDialog from "../../roadmaps/invite-mentee-dialog";
-import MilestoneCard from "../../milestones/milestone-card";
+import MilestoneCard from "../../milestones/milestone-card/milestone-card";
 import BeginRoadmapDialog from "../../roadmaps/begin-roadmap-dialog";
 import { cn, roadmapStatusTextClass } from "@/lib/utils";
 import RoadmapDetailPageSkeleton from "../../skeletons/roadmap-detail-page-skeleton";
