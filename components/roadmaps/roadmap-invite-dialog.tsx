@@ -15,7 +15,7 @@ import { RoadmapInvite } from "@prisma/client";
 import { Mail } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { RoadmapData } from "@/lib/interfaces";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 import { useToast } from "../ui/use-toast";
 
 interface RoadmapInviteDialogProps {

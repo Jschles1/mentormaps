@@ -27,7 +27,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { useParams } from "next/navigation";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 
 const formSchema = z.object({
   title: z

@@ -30,7 +30,7 @@ import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
 import MilestoneMenteeSolution from "./milestone-mentee-solution";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 
 const formSchema = z.object({
   mentorFeedbackComment: z.string().min(1, {

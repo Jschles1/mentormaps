@@ -31,7 +31,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Separator } from "../ui/separator";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 import { Milestone } from "@prisma/client";
 
 const urlSchema = z.string().url().optional().or(z.literal(""));

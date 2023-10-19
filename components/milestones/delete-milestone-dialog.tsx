@@ -15,7 +15,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { useAuth } from "@clerk/nextjs";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 
 interface DeleteMilestoneDialogProps {
   milestoneId: number;

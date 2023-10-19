@@ -15,7 +15,7 @@ import {
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 
 interface BeginRoadmapDialogProps {
   trigger?: React.ReactNode;

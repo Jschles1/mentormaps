@@ -25,7 +25,7 @@ import {
 import { useAuth } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import FormSubmitButton from "../form/form-submit-button";
+import FormSubmitButton from "../form/form-submit-button/form-submit-button";
 import { useToast } from "../ui/use-toast";
 
 const formSchema = z.object({
