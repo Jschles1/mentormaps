@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const queryClient = new QueryClient({
+export const testQueryClient = new QueryClient({
   logger: {
     log: console.log,
     warn: console.warn,
@@ -12,6 +12,8 @@ const queryClient = new QueryClient({
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => (
   <ClerkProvider>
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={testQueryClient}>
+      {children}
+    </QueryClientProvider>
   </ClerkProvider>
 );
