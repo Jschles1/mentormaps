@@ -19,7 +19,6 @@ export default function AddButton() {
     WrapperComponentsByPage[pathname as keyof typeof WrapperComponentsByPage];
 
   if (!WrapperComponent) {
-    console.log("Returning null");
     return null;
   }
 
