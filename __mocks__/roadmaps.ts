@@ -1,4 +1,10 @@
-import { RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
+import { RoadmapWithMilestonesAndInvites, RoadmapData } from "@/lib/interfaces";
+
+export const mockRoadmapData: RoadmapData = {
+  title: "Software Developer Roadmap",
+  mentorName: "Ben",
+  roadmapId: 1,
+};
 
 export const mockRoadmap: RoadmapWithMilestonesAndInvites = {
   id: 1,
