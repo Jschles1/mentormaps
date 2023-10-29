@@ -14,3 +14,24 @@ jest.mock("@clerk/nextjs", () => {
     }),
   };
 });
+
+jest.mock("@clerk/nextjs/server", () => {
+  const originalModule = jest.requireActual("@clerk/nextjs/server");
+  return {
+    __esModule: true,
+    ...originalModule,
+    clerkClient: {
+      users: {
+        getUserList: jest.fn(() => {
+          return [
+            {
+              id: "123",
+              firstName: "Test",
+              lastName: "Mentee",
+            },
+          ];
+        }),
+      },
+    },
+  };
+});
