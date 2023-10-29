@@ -4,8 +4,6 @@
 
 import { GET } from "./route";
 import { NextRequest } from "next/server";
-import { clerkClient } from "@clerk/nextjs/server";
-import prismadb from "@/lib/prisma-db";
 import { auth } from "@clerk/nextjs";
 import getNotifications from "@/lib/server/api/getNotifications";
 import mockNotifications from "@/__mocks__/notifications";
