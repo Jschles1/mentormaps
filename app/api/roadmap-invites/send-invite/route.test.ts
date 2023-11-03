@@ -8,62 +8,6 @@ import { auth } from "@clerk/nextjs";
 import prismadb from "@/lib/prisma-db";
 import { clerkClient } from "@clerk/nextjs/server";
 import { mockRoadmapInvites } from "@/__mocks__/roadmap-invites";
-import { mockMentor } from "@/__mocks__/users";
-
-// jest.mock("@clerk/nextjs", () => {
-//   const originalModule = jest.requireActual("@clerk/nextjs");
-//   return {
-//     __esModule: true,
-//     ...originalModule,
-//     auth: jest.fn(() => {
-//       return {
-//         userId: "123",
-//       };
-//     }),
-//   };
-// });
-
-// jest.mock("@clerk/nextjs/server", () => {
-//   const originalModule = jest.requireActual("@clerk/nextjs/server");
-//   return {
-//     __esModule: true,
-//     ...originalModule,
-//     clerkClient: {
-//       users: {
-//         getUserList: jest.fn(() => {
-//           return [
-//             {
-//               id: "456",
-//               firstName: "Test",
-//               lastName: "Mentee",
-//             },
-//           ];
-//         }),
-//       },
-//     },
-//   };
-// });
-
-// jest.mock("@clerk/nextjs/server", () => {
-//   const originalModule = jest.requireActual("@clerk/nextjs/server");
-//   return {
-//     __esModule: true,
-//     ...originalModule,
-//     clerkClient: {
-//       users: {
-//         getUserList: jest.fn(() => {
-//           return [
-//             {
-//               id: "123",
-//               firstName: "Test",
-//               lastName: "Mentee",
-//             },
-//           ];
-//         }),
-//       },
-//     },
-//   };
-// });
 
 jest.mock("@/lib/prisma-db", () => {
   return {
