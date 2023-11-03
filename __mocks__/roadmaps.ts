@@ -1,4 +1,10 @@
-import { RoadmapWithMilestonesAndInvites, RoadmapData } from "@/lib/interfaces";
+import {
+  RoadmapWithMilestonesAndInvites,
+  RoadmapData,
+  UserInfo,
+} from "@/lib/interfaces";
+import { mockMilestones } from "./milestones";
+import { mockMentor, mockMentee } from "./users";
 
 export const mockRoadmapData: RoadmapData = {
   title: "Software Developer Roadmap",
@@ -65,3 +71,35 @@ export const mockMenteeRoadmaps: RoadmapWithMilestonesAndInvites[] = [
     RoadmapInvite: [],
   },
 ];
+
+export const mockMentorRoadmapDetails = {
+  roadmap: mockRoadmap,
+  milestones: mockMilestones,
+  currentUser: {
+    id: mockMentor.id,
+    firstName: mockMentor.firstName,
+    lastName: mockMentor.lastName,
+  },
+  otherUser: {
+    id: mockMentee.id,
+    firstName: mockMentee.firstName,
+    lastName: mockMentee.lastName,
+  },
+  isMentor: true,
+};
+
+export const mockMenteeRoadmapDetails = {
+  roadmap: mockRoadmap,
+  milestones: mockMilestones,
+  otherUser: {
+    id: mockMentor.id,
+    firstName: mockMentor.firstName,
+    lastName: mockMentor.lastName,
+  },
+  currentUser: {
+    id: mockMentee.id,
+    firstName: mockMentee.firstName,
+    lastName: mockMentee.lastName,
+  },
+  isMentor: false,
+};
