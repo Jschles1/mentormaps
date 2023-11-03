@@ -1,7 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse, NextRequest } from "next/server";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
-import prismadb from "@/lib/prisma-db";
 
 export async function GET(req: NextRequest) {
   try {

@@ -14,7 +14,6 @@ const WrapperComponentsByPage = {
 
 export default function AddButton() {
   const pathname = usePathname();
-  console.log({ pathname });
   const WrapperComponent =
     WrapperComponentsByPage[pathname as keyof typeof WrapperComponentsByPage];
 
