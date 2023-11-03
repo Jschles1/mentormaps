@@ -14,7 +14,7 @@ const params = {
 };
 
 describe("DELETE /api/notifications/:notificationId", () => {
-  it("should return 401 if user is not logged in", async () => {
+  it("Should return 401 if user is not logged in", async () => {
     (auth as jest.Mock).mockReturnValueOnce(
       Promise.resolve({
         userId: "",
@@ -28,7 +28,7 @@ describe("DELETE /api/notifications/:notificationId", () => {
     expect(await response.text()).toBe("Unauthorized");
   });
 
-  it("should return 400 if notificationId is not a number", async () => {
+  it("Should return 400 if notificationId is not a number", async () => {
     const req = {
       params,
     } as unknown as NextRequest;
@@ -37,7 +37,7 @@ describe("DELETE /api/notifications/:notificationId", () => {
     expect(await response.text()).toBe("Requested notification doesn't exist");
   });
 
-  it("should call deleteNotification with correct arguments and return 200 if request is valid", async () => {
+  it("Should call deleteNotification with correct arguments and return 200 if request is valid", async () => {
     const req = {
       params,
     } as unknown as NextRequest;
@@ -47,7 +47,7 @@ describe("DELETE /api/notifications/:notificationId", () => {
     expect(await response.json()).toEqual({ message: "Success" });
   });
 
-  it("should return 500 if an error occurs", async () => {
+  it("Should return 500 if an error occurs", async () => {
     (deleteNotification as jest.Mock).mockRejectedValueOnce(new Error());
     const req = {
       params,
