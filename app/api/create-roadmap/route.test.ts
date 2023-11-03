@@ -57,7 +57,7 @@ describe("POST /api/create-roadmap", () => {
         menteeEmail: "nonexistent@example.com",
       }),
     } as unknown as NextRequest;
-    (clerkClient.users.getUserList as jest.Mock).mockResolvedValue([]);
+    (clerkClient.users.getUserList as jest.Mock).mockResolvedValueOnce([]);
     const response = await POST(req);
     expect(response.status).toBe(400);
     expect(await response.text()).toBe("Mentee email doesn't exist");
@@ -71,7 +71,7 @@ describe("POST /api/create-roadmap", () => {
         menteeEmail: "test@example.com",
       }),
     } as unknown as NextRequest;
-    (clerkClient.users.getUserList as jest.Mock).mockResolvedValue([
+    (clerkClient.users.getUserList as jest.Mock).mockResolvedValueOnce([
       { id: "test-mentee-id", firstName: "Test", lastName: "Mentee" },
     ]);
     (prismadb.roadmap.create as jest.Mock).mockResolvedValue({

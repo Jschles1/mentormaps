@@ -13,7 +13,7 @@ describe("Roadmaps Page", () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks(); // Restore all mocks back to their original implementations
+    // jest.restoreAllMocks(); // Restore all mocks back to their original implementations
   });
 
   it("Should render successfully", async () => {
