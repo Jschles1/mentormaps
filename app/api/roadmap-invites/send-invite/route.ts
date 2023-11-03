@@ -61,7 +61,6 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Mentee email doesn't exist", { status: 400 });
     }
   } catch (error) {
-    console.log({ error });
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

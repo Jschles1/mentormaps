@@ -85,10 +85,8 @@ jest.mock("@/lib/prisma-db", () => {
 describe("POST /api/roadmap-invites/send-invite", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // jest.resetAllMocks();
-    // jest.restoreAllMocks();
-    // (clerkClient.users.getUserList as jest.Mock).mockClear();
   });
+
   it("Should return 401 if user is not logged in", async () => {
     (auth as jest.Mock).mockReturnValueOnce(
       Promise.resolve({
