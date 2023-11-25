@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { fetchRoadmapDetails } from "@/lib/fetchers";
-import { useQuery } from "@tanstack/react-query";
 import { Milestone } from "@prisma/client";
 import Image from "next/image";
 import { Map, MilestoneIcon } from "lucide-react";
@@ -19,6 +17,7 @@ import BeginRoadmapDialog from "../roadmaps/begin-roadmap-dialog";
 import { cn, roadmapStatusTextClass } from "@/lib/utils";
 import RoadmapDetailPageSkeleton from "../skeletons/roadmap-detail-page-skeleton";
 import MilestoneFormDialog from "../milestones/milestone-form-dialog";
+import useRoadmapDetail from "@/lib/hooks/useRoadmapDetail";
 
 interface RoadmapDetailPageTemplateProps {
   roadmap: RoadmapWithMilestonesAndInvites;
@@ -38,12 +37,15 @@ export default function RoadmapDetailPageTemplate({
   const roadmapQueryKey = ["roadmap", roadmapId, currentUser?.id];
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { data, isLoading, isFetching, isRefetching, isInitialLoading } =
-    useQuery({
+    useRoadmapDetail({
       queryKey: roadmapQueryKey,
-      queryFn: () => fetchRoadmapDetails(roadmapId.toString()),
-      initialData: { roadmap, isMentor, otherUser, currentUser },
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      roadmapId: roadmapId,
+      initialData: {
+        isMentor: isMentor,
+        otherUser: otherUser,
+        currentUser: currentUser,
+        roadmap: roadmap,
+      },
     });
 
   function handlePopoverOpenChange(open: boolean) {

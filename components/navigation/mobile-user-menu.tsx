@@ -9,10 +9,9 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
 import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
-import { RoadmapInvite, Notification } from "@prisma/client";
+import { RoadmapInvite } from "@prisma/client";
 import { RoadmapData } from "@/lib/interfaces";
-import { useQuery } from "@tanstack/react-query";
-import { fetchRoadmapInvites } from "@/lib/fetchers";
+import useRoadmapInvites from "@/lib/hooks/useRoadmapInvites";
 
 interface MobileUserMenuProps {
   roadmapInvites: RoadmapInvite[];
@@ -28,12 +27,9 @@ export default function MobileUserMenu({
   // TODO: Show roadmaps that the user is a part of on non-home pages
   const [open, setOpen] = React.useState(false);
   const roadmapInvitesQueryKey = ["roadmapInvites", userId];
-  const { data } = useQuery({
+  const { data } = useRoadmapInvites({
     queryKey: roadmapInvitesQueryKey,
-    queryFn: fetchRoadmapInvites,
     initialData: { roadmapInvites, roadmapData },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
 
   const handleClose = React.useCallback(() => {
