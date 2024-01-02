@@ -2,7 +2,7 @@
 
 import { Button } from "../ui/button";
 import Image from "next/image";
-import AddTaskIcon from "public/images/icon-add-task-mobile.svg";
+import AddTaskIcon from "/public/images/icon-add-task-mobile.svg";
 import CreateRoadMapDialog from "../roadmaps/create-roadmap-dialog";
 import { usePathname } from "next/navigation";
 

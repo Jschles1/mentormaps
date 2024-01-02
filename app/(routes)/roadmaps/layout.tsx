@@ -1,5 +1,5 @@
 import DesktopUserMenu from "@/components/navigation/desktop-user-menu";
-import Logo from "public/images/logo-light-2.png";
+import Logo from "/public/images/logo-light-2.png";
 import { UserButton, auth } from "@clerk/nextjs";
 import getRoadmapInvites from "@/lib/server/api/getRoadmapInvites";
 import getNotifications from "@/lib/server/api/getNotifications";

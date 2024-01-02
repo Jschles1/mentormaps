@@ -7,7 +7,7 @@ import { Map, MilestoneIcon } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { UserInfo, RoadmapWithMilestonesAndInvites } from "@/lib/interfaces";
 import { Button } from "../ui/button";
-import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
+import IconVerticalEllipsis from "/public/images/icon-vertical-ellipsis.svg";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import EditRoadmapDialog from "../roadmaps/edit-roadmap-dialog";
 import DeleteRoadmapDialog from "../roadmaps/delete-roadmap-dialog";

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
-import Logo from "public/images/logo-light-2.png";
+import Logo from "/public/images/logo-light-2.png";
 
 export default function LandingHeader() {
   const { isSignedIn } = useAuth();

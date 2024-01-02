@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Map } from "lucide-react";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import IconVerticalEllipsis from "public/images/icon-vertical-ellipsis.svg";
+import IconVerticalEllipsis from "/public/images/icon-vertical-ellipsis.svg";
 import MenuButton from "./menu-button";
 import RoadmapInviteDialog from "../roadmaps/roadmap-invite-dialog";
 import { RoadmapInvite } from "@prisma/client";

@@ -4,7 +4,7 @@ import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "../ui/button";
-import LandingLogo from "public/images/landing-logo.png";
+import LandingLogo from "/public/images/landing-logo.png";
 import Image from "next/image";
 
 const features = [
