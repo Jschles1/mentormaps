@@ -24,7 +24,7 @@ export default async function AppLayout({
       <div className="h-16 py-5 px-4 pl-2 bg-white flex items-center justify-between z-49">
         <div className="flex items-center">
           <Image className="block" src={Logo} alt="MentorMaps Logo" />
-          <h1 className="text-lg font-bold">MentorMaps</h1>
+          <h1 className="text-lg font-bold mr-3">MentorMaps</h1>
         </div>
 
         <div className="flex items-center gap-x-3">
