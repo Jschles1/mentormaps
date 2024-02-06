@@ -181,7 +181,7 @@ export default function MilestoneCard({
                 <>
                   <Separator className="my-4" />
                   <MilestoneMenteeSolution
-                    isMentor={false}
+                    isMentor={isMentor}
                     menteeSolutionComment={menteeSolutionComment}
                     menteeSolutionUrl={menteeSolutionUrl}
                   />
