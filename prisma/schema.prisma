@@ -28,8 +28,6 @@ model Roadmap {
   id                  Int             @id @default(autoincrement())
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
-  startedAt           DateTime?
-  completedAt         DateTime?
   title               String
   goal                String
   status              RoadmapStatus   @default(Pending)
@@ -46,7 +44,6 @@ model Milestone {
   id                     Int             @id @default(autoincrement())
   createdAt              DateTime        @default(now())
   updatedAt              DateTime        @updatedAt
-  startedAt              DateTime?
   title                  String
   description            String
   subtasks               String[]
